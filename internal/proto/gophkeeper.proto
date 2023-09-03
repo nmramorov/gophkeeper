@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package gophkeeper;
+
+option go_package = "internal/gophkeeper";
+
+message User {
+  string login = 1;
+  string password = 2;
+}
+
+message RegisterUserRequest {
+  User user = 1;
+}
+
+message RegisterUserResponse {
+  string error = 1;
+}
+
+message LoginUserRequest {
+  User user = 1;
+}
+
+message LoginUserResponse {
+  string token = 1;
+  string error = 2;
+}
+
+message Meta { 
+  string content = 1;
+}
+
+message CredentialsData {
+  string uuid = 1;
+  string login = 2;
+  string password = 3;
+  optional Meta meta = 4;
+}
+
+message SaveCredentialsDataRequest {
+  string token = 1;
+  CredentialsData data = 2;
+}
+
+message SaveCredentialsDataResponse {
+  string error = 1;
+}
+
+message LoadCredentialsDataRequest {
+  string token = 1;
+  string uuid = 2;
+}
+
+message LoadCredentialsDataResponse {
+  string error = 1;
+  CredentialsData data = 2;
+}
+
+service Storage {
+  rpc SaveCredentials(SaveCredentialsDataRequest) returns (SaveCredentialsDataResponse);
+  rpc LoadCredentials(LoadCredentialsDataRequest) returns (LoadCredentialsDataResponse);
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+  rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
+}
+
+// message TextData {
+//   string data = 1;
+//   Meta meta = 2;
+// }
+
+// message SaveTextDataRequest {
+//   string token = 1;
+//   TextData data = 2;
+// }
+
+// message SaveTextDataResponse {
+//   string error = 1;
+// }
+
+// message LoadTextDataRequest {
+//   string token = 1;
+//   TextData data = 2;
+// }
+
+// message LoadTextDataResponse {
+//   string error = 1;
+// }
+
+// message BinaryData {
+//   bytes data = 1;
+//   Meta meta = 2;
+// }
+
+// message SaveBinaryDataRequest {
+//   string token = 1;
+//   BinaryData data = 2;
+// }
+
+// message SaveBinaryDataResponse {
+//   string error = 1;
+// }
+
+// message LoadBinaryDataRequest {
+//   string token = 1;
+//   BankCardData data = 2;
+// }
+
+// message LoadBinaryDataResponse {
+// }
+
+// message BankCardData {
+//   string number = 1;
+//   string owner = 2;
+//   string expires_at = 3;
+//   string secret_code = 4;
+//   string pin_code = 5;
+// }
+
