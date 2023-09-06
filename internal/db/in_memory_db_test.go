@@ -19,14 +19,14 @@ type InMemoryDBTestSuite struct {
 
 func (suite *InMemoryDBTestSuite) SetupTest() {
 	suite.TestDB = InMemoryDB{
-		users:       sync.Map{},
-		credentials: sync.Map{},
+		Users:       sync.Map{},
+		Credentials: sync.Map{},
 	}
-	suite.TestDB.users.Store("initial login", models.User{
+	suite.TestDB.Users.Store("initial login", models.User{
 		Login:    "initial login",
 		Password: "initial password",
 	})
-	suite.TestDB.credentials.Store("initial UUID", models.CredentialsData{
+	suite.TestDB.Credentials.Store("initial UUID", models.CredentialsData{
 		UUID:     "initial UUID",
 		Login:    "initial login",
 		Password: "initial password",
@@ -134,6 +134,9 @@ func (suite *InMemoryDBTestSuite) TestSaveUser() {
 	}
 	err := suite.TestDB.SaveUser(ctx, newData)
 	require.NoError(suite.T(), err)
+	user, err := suite.TestDB.LoadUser(ctx, "test")
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), "test", user.Login)
 }
 
 func (suite *InMemoryDBTestSuite) TestSaveUserContextTimeout() {

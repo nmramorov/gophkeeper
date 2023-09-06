@@ -9,8 +9,8 @@ import (
 
 type InMemoryDB struct {
 	DBAPI
-	users       sync.Map
-	credentials sync.Map
+	Users       sync.Map
+	Credentials sync.Map
 }
 
 func (d *InMemoryDB) SaveCredentials(ctx context.Context, data models.CredentialsData) error {
@@ -18,21 +18,23 @@ func (d *InMemoryDB) SaveCredentials(ctx context.Context, data models.Credential
 	case <-ctx.Done():
 		return ErrContextTimeout
 	default:
-		d.credentials.Store(data.UUID, data)
+		d.Credentials.Store(data.UUID, data)
 		return nil
 	}
 }
 
 func (d *InMemoryDB) LoadCredentials(ctx context.Context, id string) (models.CredentialsData, error) {
+	var result models.CredentialsData
 	select {
 	case <-ctx.Done():
-		return models.CredentialsData{}, ErrContextTimeout
+		return result, ErrContextTimeout
 	default:
-		data, ok := d.credentials.Load(id)
+		data, ok := d.Credentials.Load(id)
 		if !ok {
-			return models.CredentialsData{}, ErrInMemoryDB
+			return result, ErrInMemoryDB
 		}
-		return data.(models.CredentialsData), nil
+		result = data.(models.CredentialsData)
+		return result, nil
 	}
 }
 
@@ -50,7 +52,7 @@ func (d *InMemoryDB) SaveUser(ctx context.Context, data models.User) error {
 	case <-ctx.Done():
 		return ErrContextTimeout
 	default:
-		d.users.Store(data.Login, data)
+		d.Users.Store(data.Login, data)
 		return nil
 	}
 }
@@ -60,7 +62,7 @@ func (d *InMemoryDB) LoadUser(ctx context.Context, login string) (models.User, e
 	case <-ctx.Done():
 		return models.User{}, ErrContextTimeout
 	default:
-		data, ok := d.users.Load(login)
+		data, ok := d.Users.Load(login)
 		if !ok {
 			return models.User{}, ErrInMemoryDB
 		}
