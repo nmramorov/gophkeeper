@@ -35,7 +35,7 @@ func (suite *StorageServerTestSuite) SetupTest() {
 	if err != nil {
 		suite.T().Errorf("Error setup - saving user: %e", err)
 	}
-	suite.Server.Storage.SaveCredentials(suite.ctx, models.CredentialsData{
+	err = suite.Server.Storage.SaveCredentials(suite.ctx, models.CredentialsData{
 		UUID:     "initial UUID",
 		Login:    "initial login",
 		Password: "initial password",
