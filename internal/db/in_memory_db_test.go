@@ -108,7 +108,7 @@ func (suite *InMemoryDBTestSuite) TestLoadUser() {
 	result, err := suite.TestDB.LoadUser(ctx, "initial login")
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), models.User{
-		Login: "initial login",
+		Login:    "initial login",
 		Password: "initial password",
 	}, result)
 }
@@ -126,17 +126,26 @@ func (suite *InMemoryDBTestSuite) TestLoadUserContextTimeout() {
 	}, result)
 }
 
+func (suite *InMemoryDBTestSuite) TestLoadUserNotFound() {
+	ctx := context.Background()
+	result, err := suite.TestDB.LoadUser(ctx, "some login")
+	require.Error(suite.T(), ErrUserNotFound, err)
+	require.Equal(suite.T(), result, models.User{})
+}
+
 func (suite *InMemoryDBTestSuite) TestSaveUser() {
 	ctx := context.Background()
 	newData := models.User{
 		Login:    "test",
 		Password: "test",
+		Token:    "test token",
 	}
 	err := suite.TestDB.SaveUser(ctx, newData)
 	require.NoError(suite.T(), err)
-	user, err := suite.TestDB.LoadUser(ctx, "test")
+	user, err := suite.TestDB.LoadUser(ctx, "test token")
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), "test", user.Login)
+	require.Equal(suite.T(), "test token", user.Token)
 }
 
 func (suite *InMemoryDBTestSuite) TestSaveUserContextTimeout() {

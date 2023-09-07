@@ -52,19 +52,19 @@ func (d *InMemoryDB) SaveUser(ctx context.Context, data models.User) error {
 	case <-ctx.Done():
 		return ErrContextTimeout
 	default:
-		d.Users.Store(data.Login, data)
+		d.Users.Store(data.Token, data)
 		return nil
 	}
 }
 
-func (d *InMemoryDB) LoadUser(ctx context.Context, login string) (models.User, error) {
+func (d *InMemoryDB) LoadUser(ctx context.Context, token string) (models.User, error) {
 	select {
 	case <-ctx.Done():
 		return models.User{}, ErrContextTimeout
 	default:
-		data, ok := d.Users.Load(login)
+		data, ok := d.Users.Load(token)
 		if !ok {
-			return models.User{}, ErrInMemoryDB
+			return models.User{}, ErrUserNotFound
 		}
 		return data.(models.User), nil
 	}

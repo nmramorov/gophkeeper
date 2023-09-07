@@ -30,6 +30,7 @@ func (suite *StorageServerTestSuite) SetupTest() {
 	err := suite.Server.Storage.SaveUser(suite.ctx, models.User{
 		Login:    "initial login",
 		Password: "initial password",
+		Token:    "initial logininitial passwordsalt",
 	})
 	if err != nil {
 		suite.T().Errorf("Error setup - saving user: %e", err)
@@ -54,7 +55,7 @@ func (suite *StorageServerTestSuite) TestLoginInvalid() {
 	}
 	resp, err := suite.Server.Login(suite.ctx, req)
 	require.NoError(suite.T(), err)
-	require.Equal(suite.T(), "Error loading user test login: &{%!e(string=InMemoryDB internal error)}", resp.Error)
+	require.Equal(suite.T(), "error loading user test login: &{%!e(string=user not found)}", resp.Error)
 	require.Equal(suite.T(), "", resp.Token)
 }
 
@@ -92,7 +93,37 @@ func (suite *StorageServerTestSuite) TestRegisterInvalid() {
 	}
 	resp, err := suite.Server.Register(suite.ctx, req)
 	require.NoError(suite.T(), err)
-	require.Equal(suite.T(), "User initial login already exists", resp.Error)
+	require.Equal(suite.T(), "user initial login already exists", resp.Error)
+}
+
+func (suite *StorageServerTestSuite) TestSaveCredentialsInvalidToken() {
+	req := &pb.SaveCredentialsDataRequest{
+		Token: "invalid token",
+		Data: &pb.CredentialsData{
+			Uuid:     "test uuid",
+			Login:    "invalid login",
+			Password: "new password",
+			Meta:     nil,
+		},
+	}
+	resp, err := suite.Server.SaveCredentials(suite.ctx, req)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), "authorization error: invalid token", resp.Error)
+}
+
+func (suite *StorageServerTestSuite) TestSaveCredentialsSuccess() {
+	req := &pb.SaveCredentialsDataRequest{
+		Token: "initial logininitial passwordsalt",
+		Data: &pb.CredentialsData{
+			Uuid:     "test uuid",
+			Login:    "new login",
+			Password: "new password",
+			Meta:     nil,
+		},
+	}
+	resp, err := suite.Server.SaveCredentials(suite.ctx, req)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), "", resp.Error)
 }
 
 func TestStorageServerTestSuite(t *testing.T) {
