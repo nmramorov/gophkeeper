@@ -126,6 +126,40 @@ func (suite *StorageServerTestSuite) TestSaveCredentialsSuccess() {
 	require.Equal(suite.T(), "", resp.Error)
 }
 
+func (suite *StorageServerTestSuite) TestLoadCredentialsSuccess() {
+	req := &pb.LoadCredentialsDataRequest{
+		Token: "initial logininitial passwordsalt",
+		Uuid: "initial UUID",
+	} 
+	resp, err := suite.Server.LoadCredentials(suite.ctx, req)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), "", resp.Error)
+	require.Equal(suite.T(), "initial UUID", resp.Data.Uuid)
+	require.Equal(suite.T(), "initial login", resp.Data.Login)
+	require.Equal(suite.T(), "initial password", resp.Data.Password)
+	require.Equal(suite.T(), "initial Meta", resp.Data.Meta.Content)
+}
+
+func (suite *StorageServerTestSuite) TestLoadCredentialsAuthError() {
+	req := &pb.LoadCredentialsDataRequest{
+		Token: "wrong token",
+		Uuid: "initial UUID",
+	} 
+	resp, err := suite.Server.LoadCredentials(suite.ctx, req)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), "authorization error: invalid token", resp.Error)
+}
+
+func (suite *StorageServerTestSuite) TestLoadCredentialsNoSuchID() {
+	req := &pb.LoadCredentialsDataRequest{
+		Token: "wrong token",
+		Uuid: "wrong UUID",
+	} 
+	resp, err := suite.Server.LoadCredentials(suite.ctx, req)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(),  "internal server error for data wrong UUID", resp.Error)
+}
+
 func TestStorageServerTestSuite(t *testing.T) {
 	suite.Run(t, new(StorageServerTestSuite))
 }

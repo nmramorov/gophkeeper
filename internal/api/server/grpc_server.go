@@ -63,33 +63,59 @@ func ValidateToken(incoming, stored string) bool {
 	return incoming == stored
 }
 
+func (s *StorageServer) ValidateRequest(ctx context.Context, token string) string {
+	user, err := s.Storage.LoadUser(ctx, token)
+	if err != nil {
+		if err == db.ErrUserNotFound {
+			return "authorization error: invalid token"
+		} else {
+			return "internal server error"
+		}
+	}
+	if !ValidateToken(token, user.Token) {
+		return "authorization error: invalid token"
+	}
+	// In case of successfull validation value for response.Error is empty
+	return ""
+}
+
 func (s *StorageServer) SaveCredentials(ctx context.Context, in *pb.SaveCredentialsDataRequest) (*pb.SaveCredentialsDataResponse, error) {
 	var response pb.SaveCredentialsDataResponse
 
-	user, err := s.Storage.LoadUser(ctx, in.Token)
-	if err != nil {
-		if err == db.ErrUserNotFound {
-			response.Error = "authorization error: invalid token"
-			return &response, nil
-		} else {
-			response.Error = "internal server error"
-			return &response, nil
-		}
-	}
-	if !ValidateToken(in.Token, user.Token) {
-		response.Error = "authorization error: invalid token"
-		return &response, nil
-	}
+	validationError := s.ValidateRequest(ctx, in.Token)
+	response.Error = validationError
 
 	newCredentials := models.CredentialsData{
 		UUID: in.Data.Uuid,
 		Login: in.Data.Login,
 		Password: in.Data.Password,
 	}
-	err = s.Storage.SaveCredentials(ctx, newCredentials)
+	err := s.Storage.SaveCredentials(ctx, newCredentials)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Data.Uuid)
 		return &response, nil
+	}
+	return &response, nil
+}
+
+func (s *StorageServer) LoadCredentials(ctx context.Context, in *pb.LoadCredentialsDataRequest) (*pb.LoadCredentialsDataResponse, error) {
+	var response pb.LoadCredentialsDataResponse
+
+	validationError := s.ValidateRequest(ctx, in.Token)
+	response.Error = validationError
+
+	credentials, err := s.Storage.LoadCredentials(ctx, in.Uuid)
+	if err != nil {
+		response.Error = fmt.Sprintf("internal server error for data %s", in.Uuid)
+		return &response, nil
+	}
+	response.Data = &pb.CredentialsData{
+		Uuid: credentials.UUID,
+		Login: credentials.Login,
+		Password: credentials.Password,
+		Meta: &pb.Meta{
+			Content: credentials.Meta,
+		},
 	}
 	return &response, nil
 }
