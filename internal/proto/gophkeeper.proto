@@ -56,63 +56,94 @@ message LoadCredentialsDataResponse {
   CredentialsData data = 2;
 }
 
+message TextData {
+  string uuid = 1;
+  string data = 2;
+  optional Meta meta = 3;
+}
+
+message SaveTextDataRequest {
+  string token = 1;
+  TextData data = 2;
+}
+
+message SaveTextDataResponse {
+  string error = 1;
+}
+
+message LoadTextDataRequest {
+  string token = 1;
+  string uuid = 2;
+}
+
+message LoadTextDataResponse {
+  string error = 1;
+  TextData data = 2;
+}
+
+message BinaryData {
+  string uuid = 1;
+  bytes data = 2;
+  optional Meta meta = 3;
+}
+
+message SaveBinaryDataRequest {
+  string token = 1;
+  BinaryData data = 2;
+}
+
+message SaveBinaryDataResponse {
+  string error = 1;
+}
+
+message LoadBinaryDataRequest {
+  string token = 1;
+  string uuid = 2;
+}
+
+message LoadBinaryDataResponse {
+  string error = 1;
+  BinaryData data = 2;
+}
+
+message BankCardData {
+  string uuid = 1;
+  string number = 2;
+  string owner = 3;
+  string expires_at = 4;
+  string secret_code = 5;
+  string pin_code = 6;
+  optional Meta meta = 7;
+}
+
+message SaveBankCardDataRequest {
+  string token = 1;
+  BankCardData data = 2;
+}
+
+message SaveBankCardDataResponse {
+  string error = 1;
+}
+
+message LoadBankCardDataRequest {
+  string token = 1;
+  string uuid = 2;
+}
+
+message LoadBankCardDataResponse {
+  string error = 1;
+  BankCardData data = 2;
+}
+
 service Storage {
   rpc SaveCredentials(SaveCredentialsDataRequest) returns (SaveCredentialsDataResponse);
   rpc LoadCredentials(LoadCredentialsDataRequest) returns (LoadCredentialsDataResponse);
+  rpc SaveText(SaveTextDataRequest) returns (SaveTextDataResponse);
+  rpc LoadText(LoadTextDataRequest) returns (LoadTextDataResponse);
+  rpc SaveBinary(SaveBinaryDataRequest) returns (SaveBinaryDataResponse);
+  rpc LoadBinary(LoadBinaryDataRequest) returns (LoadBinaryDataResponse);
+  rpc SaveBankCard(SaveBankCardDataRequest) returns (SaveBankCardDataResponse);
+  rpc LoadBankCard(LoadBankCardDataRequest) returns (LoadBankCardDataResponse);
   rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
   rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
 }
-
-// message TextData {
-//   string data = 1;
-//   Meta meta = 2;
-// }
-
-// message SaveTextDataRequest {
-//   string token = 1;
-//   TextData data = 2;
-// }
-
-// message SaveTextDataResponse {
-//   string error = 1;
-// }
-
-// message LoadTextDataRequest {
-//   string token = 1;
-//   TextData data = 2;
-// }
-
-// message LoadTextDataResponse {
-//   string error = 1;
-// }
-
-// message BinaryData {
-//   bytes data = 1;
-//   Meta meta = 2;
-// }
-
-// message SaveBinaryDataRequest {
-//   string token = 1;
-//   BinaryData data = 2;
-// }
-
-// message SaveBinaryDataResponse {
-//   string error = 1;
-// }
-
-// message LoadBinaryDataRequest {
-//   string token = 1;
-//   BankCardData data = 2;
-// }
-
-// message LoadBinaryDataResponse {
-// }
-
-// message BankCardData {
-//   string number = 1;
-//   string owner = 2;
-//   string expires_at = 3;
-//   string secret_code = 4;
-//   string pin_code = 5;
-// }
-

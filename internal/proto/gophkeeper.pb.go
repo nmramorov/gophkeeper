@@ -601,6 +601,863 @@ func (x *LoadCredentialsDataResponse) GetData() *CredentialsData {
 	return nil
 }
 
+type TextData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Uuid string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	Data string `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	Meta *Meta  `protobuf:"bytes,3,opt,name=meta,proto3,oneof" json:"meta,omitempty"`
+}
+
+func (x *TextData) Reset() {
+	*x = TextData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TextData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TextData) ProtoMessage() {}
+
+func (x *TextData) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TextData.ProtoReflect.Descriptor instead.
+func (*TextData) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *TextData) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
+func (x *TextData) GetData() string {
+	if x != nil {
+		return x.Data
+	}
+	return ""
+}
+
+func (x *TextData) GetMeta() *Meta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+type SaveTextDataRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string    `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Data  *TextData `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *SaveTextDataRequest) Reset() {
+	*x = SaveTextDataRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SaveTextDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SaveTextDataRequest) ProtoMessage() {}
+
+func (x *SaveTextDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SaveTextDataRequest.ProtoReflect.Descriptor instead.
+func (*SaveTextDataRequest) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *SaveTextDataRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *SaveTextDataRequest) GetData() *TextData {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type SaveTextDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Error string `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *SaveTextDataResponse) Reset() {
+	*x = SaveTextDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SaveTextDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SaveTextDataResponse) ProtoMessage() {}
+
+func (x *SaveTextDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SaveTextDataResponse.ProtoReflect.Descriptor instead.
+func (*SaveTextDataResponse) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *SaveTextDataResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type LoadTextDataRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Uuid  string `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
+}
+
+func (x *LoadTextDataRequest) Reset() {
+	*x = LoadTextDataRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LoadTextDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadTextDataRequest) ProtoMessage() {}
+
+func (x *LoadTextDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadTextDataRequest.ProtoReflect.Descriptor instead.
+func (*LoadTextDataRequest) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *LoadTextDataRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *LoadTextDataRequest) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
+type LoadTextDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Error string    `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
+	Data  *TextData `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *LoadTextDataResponse) Reset() {
+	*x = LoadTextDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LoadTextDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadTextDataResponse) ProtoMessage() {}
+
+func (x *LoadTextDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadTextDataResponse.ProtoReflect.Descriptor instead.
+func (*LoadTextDataResponse) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *LoadTextDataResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+func (x *LoadTextDataResponse) GetData() *TextData {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type BinaryData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Uuid string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	Data []byte `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	Meta *Meta  `protobuf:"bytes,3,opt,name=meta,proto3,oneof" json:"meta,omitempty"`
+}
+
+func (x *BinaryData) Reset() {
+	*x = BinaryData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BinaryData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BinaryData) ProtoMessage() {}
+
+func (x *BinaryData) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BinaryData.ProtoReflect.Descriptor instead.
+func (*BinaryData) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *BinaryData) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
+func (x *BinaryData) GetData() []byte {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *BinaryData) GetMeta() *Meta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+type SaveBinaryDataRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string      `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Data  *BinaryData `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *SaveBinaryDataRequest) Reset() {
+	*x = SaveBinaryDataRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SaveBinaryDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SaveBinaryDataRequest) ProtoMessage() {}
+
+func (x *SaveBinaryDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SaveBinaryDataRequest.ProtoReflect.Descriptor instead.
+func (*SaveBinaryDataRequest) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *SaveBinaryDataRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *SaveBinaryDataRequest) GetData() *BinaryData {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type SaveBinaryDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Error string `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *SaveBinaryDataResponse) Reset() {
+	*x = SaveBinaryDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SaveBinaryDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SaveBinaryDataResponse) ProtoMessage() {}
+
+func (x *SaveBinaryDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SaveBinaryDataResponse.ProtoReflect.Descriptor instead.
+func (*SaveBinaryDataResponse) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *SaveBinaryDataResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type LoadBinaryDataRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Uuid  string `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
+}
+
+func (x *LoadBinaryDataRequest) Reset() {
+	*x = LoadBinaryDataRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LoadBinaryDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadBinaryDataRequest) ProtoMessage() {}
+
+func (x *LoadBinaryDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadBinaryDataRequest.ProtoReflect.Descriptor instead.
+func (*LoadBinaryDataRequest) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *LoadBinaryDataRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *LoadBinaryDataRequest) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
+type LoadBinaryDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Error string      `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
+	Data  *BinaryData `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *LoadBinaryDataResponse) Reset() {
+	*x = LoadBinaryDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LoadBinaryDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadBinaryDataResponse) ProtoMessage() {}
+
+func (x *LoadBinaryDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadBinaryDataResponse.ProtoReflect.Descriptor instead.
+func (*LoadBinaryDataResponse) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *LoadBinaryDataResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+func (x *LoadBinaryDataResponse) GetData() *BinaryData {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type BankCardData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Uuid       string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	Number     string `protobuf:"bytes,2,opt,name=number,proto3" json:"number,omitempty"`
+	Owner      string `protobuf:"bytes,3,opt,name=owner,proto3" json:"owner,omitempty"`
+	ExpiresAt  string `protobuf:"bytes,4,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	SecretCode string `protobuf:"bytes,5,opt,name=secret_code,json=secretCode,proto3" json:"secret_code,omitempty"`
+	PinCode    string `protobuf:"bytes,6,opt,name=pin_code,json=pinCode,proto3" json:"pin_code,omitempty"`
+	Meta       *Meta  `protobuf:"bytes,7,opt,name=meta,proto3,oneof" json:"meta,omitempty"`
+}
+
+func (x *BankCardData) Reset() {
+	*x = BankCardData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BankCardData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BankCardData) ProtoMessage() {}
+
+func (x *BankCardData) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BankCardData.ProtoReflect.Descriptor instead.
+func (*BankCardData) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *BankCardData) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
+func (x *BankCardData) GetNumber() string {
+	if x != nil {
+		return x.Number
+	}
+	return ""
+}
+
+func (x *BankCardData) GetOwner() string {
+	if x != nil {
+		return x.Owner
+	}
+	return ""
+}
+
+func (x *BankCardData) GetExpiresAt() string {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return ""
+}
+
+func (x *BankCardData) GetSecretCode() string {
+	if x != nil {
+		return x.SecretCode
+	}
+	return ""
+}
+
+func (x *BankCardData) GetPinCode() string {
+	if x != nil {
+		return x.PinCode
+	}
+	return ""
+}
+
+func (x *BankCardData) GetMeta() *Meta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+type SaveBankCardDataRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string        `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Data  *BankCardData `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *SaveBankCardDataRequest) Reset() {
+	*x = SaveBankCardDataRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[22]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SaveBankCardDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SaveBankCardDataRequest) ProtoMessage() {}
+
+func (x *SaveBankCardDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[22]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SaveBankCardDataRequest.ProtoReflect.Descriptor instead.
+func (*SaveBankCardDataRequest) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *SaveBankCardDataRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *SaveBankCardDataRequest) GetData() *BankCardData {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type SaveBankCardDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Error string `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *SaveBankCardDataResponse) Reset() {
+	*x = SaveBankCardDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[23]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SaveBankCardDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SaveBankCardDataResponse) ProtoMessage() {}
+
+func (x *SaveBankCardDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[23]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SaveBankCardDataResponse.ProtoReflect.Descriptor instead.
+func (*SaveBankCardDataResponse) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *SaveBankCardDataResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type LoadBankCardDataRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Uuid  string `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
+}
+
+func (x *LoadBankCardDataRequest) Reset() {
+	*x = LoadBankCardDataRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LoadBankCardDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadBankCardDataRequest) ProtoMessage() {}
+
+func (x *LoadBankCardDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadBankCardDataRequest.ProtoReflect.Descriptor instead.
+func (*LoadBankCardDataRequest) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *LoadBankCardDataRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *LoadBankCardDataRequest) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
+type LoadBankCardDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Error string        `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
+	Data  *BankCardData `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *LoadBankCardDataResponse) Reset() {
+	*x = LoadBankCardDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gophkeeper_proto_msgTypes[25]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LoadBankCardDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadBankCardDataResponse) ProtoMessage() {}
+
+func (x *LoadBankCardDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gophkeeper_proto_msgTypes[25]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadBankCardDataResponse.ProtoReflect.Descriptor instead.
+func (*LoadBankCardDataResponse) Descriptor() ([]byte, []int) {
+	return file_proto_gophkeeper_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *LoadBankCardDataResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+func (x *LoadBankCardDataResponse) GetData() *BankCardData {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
 var File_proto_gophkeeper_proto protoreflect.FileDescriptor
 
 var file_proto_gophkeeper_proto_rawDesc = []byte{
@@ -655,20 +1512,135 @@ var file_proto_gophkeeper_proto_rawDesc = []byte{
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x2f, 0x0a, 0x04, 0x64,
 	0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x67, 0x6f, 0x70, 0x68,
 	0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61,
-	0x6c, 0x73, 0x44, 0x61, 0x74, 0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x32, 0xee, 0x02, 0x0a,
-	0x07, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x12, 0x62, 0x0a, 0x0f, 0x53, 0x61, 0x76, 0x65,
-	0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x12, 0x26, 0x2e, 0x67, 0x6f,
-	0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x53, 0x61, 0x76, 0x65, 0x43, 0x72, 0x65,
-	0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72,
-	0x2e, 0x53, 0x61, 0x76, 0x65, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73,
-	0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x62, 0x0a, 0x0f,
-	0x4c, 0x6f, 0x61, 0x64, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x12,
-	0x26, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x4c, 0x6f, 0x61,
-	0x64, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x44, 0x61, 0x74, 0x61,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65,
-	0x65, 0x70, 0x65, 0x72, 0x2e, 0x4c, 0x6f, 0x61, 0x64, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74,
-	0x69, 0x61, 0x6c, 0x73, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x6c, 0x73, 0x44, 0x61, 0x74, 0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x66, 0x0a, 0x08,
+	0x54, 0x65, 0x78, 0x74, 0x44, 0x61, 0x74, 0x61, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x75, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x75, 0x75, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04,
+	0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61,
+	0x12, 0x29, 0x0a, 0x04, 0x6d, 0x65, 0x74, 0x61, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10,
+	0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x4d, 0x65, 0x74, 0x61,
+	0x48, 0x00, 0x52, 0x04, 0x6d, 0x65, 0x74, 0x61, 0x88, 0x01, 0x01, 0x42, 0x07, 0x0a, 0x05, 0x5f,
+	0x6d, 0x65, 0x74, 0x61, 0x22, 0x55, 0x0a, 0x13, 0x53, 0x61, 0x76, 0x65, 0x54, 0x65, 0x78, 0x74,
+	0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74,
+	0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65,
+	0x6e, 0x12, 0x28, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x14, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x54, 0x65, 0x78,
+	0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x2c, 0x0a, 0x14, 0x53,
+	0x61, 0x76, 0x65, 0x54, 0x65, 0x78, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x3f, 0x0a, 0x13, 0x4c, 0x6f, 0x61,
+	0x64, 0x54, 0x65, 0x78, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x75, 0x69, 0x64, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x75, 0x75, 0x69, 0x64, 0x22, 0x56, 0x0a, 0x14, 0x4c, 0x6f,
+	0x61, 0x64, 0x54, 0x65, 0x78, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x28, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65,
+	0x70, 0x65, 0x72, 0x2e, 0x54, 0x65, 0x78, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x04, 0x64, 0x61,
+	0x74, 0x61, 0x22, 0x68, 0x0a, 0x0a, 0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61, 0x74, 0x61,
+	0x12, 0x12, 0x0a, 0x04, 0x75, 0x75, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x75, 0x75, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x29, 0x0a, 0x04, 0x6d, 0x65, 0x74, 0x61,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65,
+	0x70, 0x65, 0x72, 0x2e, 0x4d, 0x65, 0x74, 0x61, 0x48, 0x00, 0x52, 0x04, 0x6d, 0x65, 0x74, 0x61,
+	0x88, 0x01, 0x01, 0x42, 0x07, 0x0a, 0x05, 0x5f, 0x6d, 0x65, 0x74, 0x61, 0x22, 0x59, 0x0a, 0x15,
+	0x53, 0x61, 0x76, 0x65, 0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x2a, 0x0a, 0x04, 0x64,
+	0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x67, 0x6f, 0x70, 0x68,
+	0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61, 0x74,
+	0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x2e, 0x0a, 0x16, 0x53, 0x61, 0x76, 0x65, 0x42,
+	0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x41, 0x0a, 0x15, 0x4c, 0x6f, 0x61, 0x64, 0x42,
+	0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x75, 0x69, 0x64, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x75, 0x75, 0x69, 0x64, 0x22, 0x5a, 0x0a, 0x16, 0x4c, 0x6f,
+	0x61, 0x64, 0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x2a, 0x0a, 0x04, 0x64, 0x61,
+	0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b,
+	0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61, 0x74, 0x61,
+	0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0xdf, 0x01, 0x0a, 0x0c, 0x42, 0x61, 0x6e, 0x6b, 0x43,
+	0x61, 0x72, 0x64, 0x44, 0x61, 0x74, 0x61, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x75, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x75, 0x75, 0x69, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x6e,
+	0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6e, 0x75, 0x6d,
+	0x62, 0x65, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x12, 0x1d, 0x0a, 0x0a, 0x65, 0x78, 0x70,
+	0x69, 0x72, 0x65, 0x73, 0x5f, 0x61, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x65,
+	0x78, 0x70, 0x69, 0x72, 0x65, 0x73, 0x41, 0x74, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x65, 0x63, 0x72,
+	0x65, 0x74, 0x5f, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x73,
+	0x65, 0x63, 0x72, 0x65, 0x74, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x70, 0x69, 0x6e,
+	0x5f, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x70, 0x69, 0x6e,
+	0x43, 0x6f, 0x64, 0x65, 0x12, 0x29, 0x0a, 0x04, 0x6d, 0x65, 0x74, 0x61, 0x18, 0x07, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x10, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e,
+	0x4d, 0x65, 0x74, 0x61, 0x48, 0x00, 0x52, 0x04, 0x6d, 0x65, 0x74, 0x61, 0x88, 0x01, 0x01, 0x42,
+	0x07, 0x0a, 0x05, 0x5f, 0x6d, 0x65, 0x74, 0x61, 0x22, 0x5d, 0x0a, 0x17, 0x53, 0x61, 0x76, 0x65,
+	0x42, 0x61, 0x6e, 0x6b, 0x43, 0x61, 0x72, 0x64, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x2c, 0x0a, 0x04, 0x64, 0x61, 0x74,
+	0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65,
+	0x65, 0x70, 0x65, 0x72, 0x2e, 0x42, 0x61, 0x6e, 0x6b, 0x43, 0x61, 0x72, 0x64, 0x44, 0x61, 0x74,
+	0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x30, 0x0a, 0x18, 0x53, 0x61, 0x76, 0x65, 0x42,
+	0x61, 0x6e, 0x6b, 0x43, 0x61, 0x72, 0x64, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x43, 0x0a, 0x17, 0x4c, 0x6f, 0x61,
+	0x64, 0x42, 0x61, 0x6e, 0x6b, 0x43, 0x61, 0x72, 0x64, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x75,
+	0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x75, 0x75, 0x69, 0x64, 0x22, 0x5e,
+	0x0a, 0x18, 0x4c, 0x6f, 0x61, 0x64, 0x42, 0x61, 0x6e, 0x6b, 0x43, 0x61, 0x72, 0x64, 0x44, 0x61,
+	0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72,
+	0x72, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72,
+	0x12, 0x2c, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18,
+	0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x42, 0x61, 0x6e, 0x6b,
+	0x43, 0x61, 0x72, 0x64, 0x44, 0x61, 0x74, 0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x32, 0xec,
+	0x06, 0x0a, 0x07, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x12, 0x62, 0x0a, 0x0f, 0x53, 0x61,
+	0x76, 0x65, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x12, 0x26, 0x2e,
+	0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x53, 0x61, 0x76, 0x65, 0x43,
+	0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70,
+	0x65, 0x72, 0x2e, 0x53, 0x61, 0x76, 0x65, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61,
+	0x6c, 0x73, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x62,
+	0x0a, 0x0f, 0x4c, 0x6f, 0x61, 0x64, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c,
+	0x73, 0x12, 0x26, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x4c,
+	0x6f, 0x61, 0x64, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x44, 0x61,
+	0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x67, 0x6f, 0x70, 0x68,
+	0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x4c, 0x6f, 0x61, 0x64, 0x43, 0x72, 0x65, 0x64, 0x65,
+	0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x4d, 0x0a, 0x08, 0x53, 0x61, 0x76, 0x65, 0x54, 0x65, 0x78, 0x74, 0x12, 0x1f,
+	0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x53, 0x61, 0x76, 0x65,
+	0x54, 0x65, 0x78, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x20, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x53, 0x61, 0x76,
+	0x65, 0x54, 0x65, 0x78, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x4d, 0x0a, 0x08, 0x4c, 0x6f, 0x61, 0x64, 0x54, 0x65, 0x78, 0x74, 0x12, 0x1f, 0x2e,
+	0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x4c, 0x6f, 0x61, 0x64, 0x54,
+	0x65, 0x78, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20,
+	0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x4c, 0x6f, 0x61, 0x64,
+	0x54, 0x65, 0x78, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x53, 0x0a, 0x0a, 0x53, 0x61, 0x76, 0x65, 0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x12, 0x21,
+	0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x53, 0x61, 0x76, 0x65,
+	0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x22, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x53,
+	0x61, 0x76, 0x65, 0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x53, 0x0a, 0x0a, 0x4c, 0x6f, 0x61, 0x64, 0x42, 0x69, 0x6e,
+	0x61, 0x72, 0x79, 0x12, 0x21, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72,
+	0x2e, 0x4c, 0x6f, 0x61, 0x64, 0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61, 0x74, 0x61, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x22, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65,
+	0x70, 0x65, 0x72, 0x2e, 0x4c, 0x6f, 0x61, 0x64, 0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x44, 0x61,
+	0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x59, 0x0a, 0x0c, 0x53, 0x61,
+	0x76, 0x65, 0x42, 0x61, 0x6e, 0x6b, 0x43, 0x61, 0x72, 0x64, 0x12, 0x23, 0x2e, 0x67, 0x6f, 0x70,
+	0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x53, 0x61, 0x76, 0x65, 0x42, 0x61, 0x6e, 0x6b,
+	0x43, 0x61, 0x72, 0x64, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x24, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x53, 0x61, 0x76,
+	0x65, 0x42, 0x61, 0x6e, 0x6b, 0x43, 0x61, 0x72, 0x64, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x59, 0x0a, 0x0c, 0x4c, 0x6f, 0x61, 0x64, 0x42, 0x61, 0x6e,
+	0x6b, 0x43, 0x61, 0x72, 0x64, 0x12, 0x23, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70,
+	0x65, 0x72, 0x2e, 0x4c, 0x6f, 0x61, 0x64, 0x42, 0x61, 0x6e, 0x6b, 0x43, 0x61, 0x72, 0x64, 0x44,
+	0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x24, 0x2e, 0x67, 0x6f, 0x70,
+	0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x4c, 0x6f, 0x61, 0x64, 0x42, 0x61, 0x6e, 0x6b,
+	0x43, 0x61, 0x72, 0x64, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x12, 0x51, 0x0a, 0x0c, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72,
 	0x12, 0x1f, 0x2e, 0x67, 0x6f, 0x70, 0x68, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x2e, 0x52, 0x65,
 	0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
@@ -695,7 +1667,7 @@ func file_proto_gophkeeper_proto_rawDescGZIP() []byte {
 	return file_proto_gophkeeper_proto_rawDescData
 }
 
-var file_proto_gophkeeper_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_proto_gophkeeper_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
 var file_proto_gophkeeper_proto_goTypes = []interface{}{
 	(*User)(nil),                        // 0: gophkeeper.User
 	(*RegisterUserRequest)(nil),         // 1: gophkeeper.RegisterUserRequest
@@ -708,6 +1680,21 @@ var file_proto_gophkeeper_proto_goTypes = []interface{}{
 	(*SaveCredentialsDataResponse)(nil), // 8: gophkeeper.SaveCredentialsDataResponse
 	(*LoadCredentialsDataRequest)(nil),  // 9: gophkeeper.LoadCredentialsDataRequest
 	(*LoadCredentialsDataResponse)(nil), // 10: gophkeeper.LoadCredentialsDataResponse
+	(*TextData)(nil),                    // 11: gophkeeper.TextData
+	(*SaveTextDataRequest)(nil),         // 12: gophkeeper.SaveTextDataRequest
+	(*SaveTextDataResponse)(nil),        // 13: gophkeeper.SaveTextDataResponse
+	(*LoadTextDataRequest)(nil),         // 14: gophkeeper.LoadTextDataRequest
+	(*LoadTextDataResponse)(nil),        // 15: gophkeeper.LoadTextDataResponse
+	(*BinaryData)(nil),                  // 16: gophkeeper.BinaryData
+	(*SaveBinaryDataRequest)(nil),       // 17: gophkeeper.SaveBinaryDataRequest
+	(*SaveBinaryDataResponse)(nil),      // 18: gophkeeper.SaveBinaryDataResponse
+	(*LoadBinaryDataRequest)(nil),       // 19: gophkeeper.LoadBinaryDataRequest
+	(*LoadBinaryDataResponse)(nil),      // 20: gophkeeper.LoadBinaryDataResponse
+	(*BankCardData)(nil),                // 21: gophkeeper.BankCardData
+	(*SaveBankCardDataRequest)(nil),     // 22: gophkeeper.SaveBankCardDataRequest
+	(*SaveBankCardDataResponse)(nil),    // 23: gophkeeper.SaveBankCardDataResponse
+	(*LoadBankCardDataRequest)(nil),     // 24: gophkeeper.LoadBankCardDataRequest
+	(*LoadBankCardDataResponse)(nil),    // 25: gophkeeper.LoadBankCardDataResponse
 }
 var file_proto_gophkeeper_proto_depIdxs = []int32{
 	0,  // 0: gophkeeper.RegisterUserRequest.user:type_name -> gophkeeper.User
@@ -715,19 +1702,40 @@ var file_proto_gophkeeper_proto_depIdxs = []int32{
 	5,  // 2: gophkeeper.CredentialsData.meta:type_name -> gophkeeper.Meta
 	6,  // 3: gophkeeper.SaveCredentialsDataRequest.data:type_name -> gophkeeper.CredentialsData
 	6,  // 4: gophkeeper.LoadCredentialsDataResponse.data:type_name -> gophkeeper.CredentialsData
-	7,  // 5: gophkeeper.Storage.SaveCredentials:input_type -> gophkeeper.SaveCredentialsDataRequest
-	9,  // 6: gophkeeper.Storage.LoadCredentials:input_type -> gophkeeper.LoadCredentialsDataRequest
-	1,  // 7: gophkeeper.Storage.RegisterUser:input_type -> gophkeeper.RegisterUserRequest
-	3,  // 8: gophkeeper.Storage.LoginUser:input_type -> gophkeeper.LoginUserRequest
-	8,  // 9: gophkeeper.Storage.SaveCredentials:output_type -> gophkeeper.SaveCredentialsDataResponse
-	10, // 10: gophkeeper.Storage.LoadCredentials:output_type -> gophkeeper.LoadCredentialsDataResponse
-	2,  // 11: gophkeeper.Storage.RegisterUser:output_type -> gophkeeper.RegisterUserResponse
-	4,  // 12: gophkeeper.Storage.LoginUser:output_type -> gophkeeper.LoginUserResponse
-	9,  // [9:13] is the sub-list for method output_type
-	5,  // [5:9] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	5,  // 5: gophkeeper.TextData.meta:type_name -> gophkeeper.Meta
+	11, // 6: gophkeeper.SaveTextDataRequest.data:type_name -> gophkeeper.TextData
+	11, // 7: gophkeeper.LoadTextDataResponse.data:type_name -> gophkeeper.TextData
+	5,  // 8: gophkeeper.BinaryData.meta:type_name -> gophkeeper.Meta
+	16, // 9: gophkeeper.SaveBinaryDataRequest.data:type_name -> gophkeeper.BinaryData
+	16, // 10: gophkeeper.LoadBinaryDataResponse.data:type_name -> gophkeeper.BinaryData
+	5,  // 11: gophkeeper.BankCardData.meta:type_name -> gophkeeper.Meta
+	21, // 12: gophkeeper.SaveBankCardDataRequest.data:type_name -> gophkeeper.BankCardData
+	21, // 13: gophkeeper.LoadBankCardDataResponse.data:type_name -> gophkeeper.BankCardData
+	7,  // 14: gophkeeper.Storage.SaveCredentials:input_type -> gophkeeper.SaveCredentialsDataRequest
+	9,  // 15: gophkeeper.Storage.LoadCredentials:input_type -> gophkeeper.LoadCredentialsDataRequest
+	12, // 16: gophkeeper.Storage.SaveText:input_type -> gophkeeper.SaveTextDataRequest
+	14, // 17: gophkeeper.Storage.LoadText:input_type -> gophkeeper.LoadTextDataRequest
+	17, // 18: gophkeeper.Storage.SaveBinary:input_type -> gophkeeper.SaveBinaryDataRequest
+	19, // 19: gophkeeper.Storage.LoadBinary:input_type -> gophkeeper.LoadBinaryDataRequest
+	22, // 20: gophkeeper.Storage.SaveBankCard:input_type -> gophkeeper.SaveBankCardDataRequest
+	24, // 21: gophkeeper.Storage.LoadBankCard:input_type -> gophkeeper.LoadBankCardDataRequest
+	1,  // 22: gophkeeper.Storage.RegisterUser:input_type -> gophkeeper.RegisterUserRequest
+	3,  // 23: gophkeeper.Storage.LoginUser:input_type -> gophkeeper.LoginUserRequest
+	8,  // 24: gophkeeper.Storage.SaveCredentials:output_type -> gophkeeper.SaveCredentialsDataResponse
+	10, // 25: gophkeeper.Storage.LoadCredentials:output_type -> gophkeeper.LoadCredentialsDataResponse
+	13, // 26: gophkeeper.Storage.SaveText:output_type -> gophkeeper.SaveTextDataResponse
+	15, // 27: gophkeeper.Storage.LoadText:output_type -> gophkeeper.LoadTextDataResponse
+	18, // 28: gophkeeper.Storage.SaveBinary:output_type -> gophkeeper.SaveBinaryDataResponse
+	20, // 29: gophkeeper.Storage.LoadBinary:output_type -> gophkeeper.LoadBinaryDataResponse
+	23, // 30: gophkeeper.Storage.SaveBankCard:output_type -> gophkeeper.SaveBankCardDataResponse
+	25, // 31: gophkeeper.Storage.LoadBankCard:output_type -> gophkeeper.LoadBankCardDataResponse
+	2,  // 32: gophkeeper.Storage.RegisterUser:output_type -> gophkeeper.RegisterUserResponse
+	4,  // 33: gophkeeper.Storage.LoginUser:output_type -> gophkeeper.LoginUserResponse
+	24, // [24:34] is the sub-list for method output_type
+	14, // [14:24] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_proto_gophkeeper_proto_init() }
@@ -868,15 +1876,198 @@ func file_proto_gophkeeper_proto_init() {
 				return nil
 			}
 		}
+		file_proto_gophkeeper_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TextData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SaveTextDataRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SaveTextDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LoadTextDataRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LoadTextDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BinaryData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SaveBinaryDataRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SaveBinaryDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LoadBinaryDataRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LoadBinaryDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BankCardData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SaveBankCardDataRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SaveBankCardDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LoadBankCardDataRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gophkeeper_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LoadBankCardDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_proto_gophkeeper_proto_msgTypes[6].OneofWrappers = []interface{}{}
+	file_proto_gophkeeper_proto_msgTypes[11].OneofWrappers = []interface{}{}
+	file_proto_gophkeeper_proto_msgTypes[16].OneofWrappers = []interface{}{}
+	file_proto_gophkeeper_proto_msgTypes[21].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_proto_gophkeeper_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   26,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -21,6 +21,12 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Storage_SaveCredentials_FullMethodName = "/gophkeeper.Storage/SaveCredentials"
 	Storage_LoadCredentials_FullMethodName = "/gophkeeper.Storage/LoadCredentials"
+	Storage_SaveText_FullMethodName        = "/gophkeeper.Storage/SaveText"
+	Storage_LoadText_FullMethodName        = "/gophkeeper.Storage/LoadText"
+	Storage_SaveBinary_FullMethodName      = "/gophkeeper.Storage/SaveBinary"
+	Storage_LoadBinary_FullMethodName      = "/gophkeeper.Storage/LoadBinary"
+	Storage_SaveBankCard_FullMethodName    = "/gophkeeper.Storage/SaveBankCard"
+	Storage_LoadBankCard_FullMethodName    = "/gophkeeper.Storage/LoadBankCard"
 	Storage_RegisterUser_FullMethodName    = "/gophkeeper.Storage/RegisterUser"
 	Storage_LoginUser_FullMethodName       = "/gophkeeper.Storage/LoginUser"
 )
@@ -31,6 +37,12 @@ const (
 type StorageClient interface {
 	SaveCredentials(ctx context.Context, in *SaveCredentialsDataRequest, opts ...grpc.CallOption) (*SaveCredentialsDataResponse, error)
 	LoadCredentials(ctx context.Context, in *LoadCredentialsDataRequest, opts ...grpc.CallOption) (*LoadCredentialsDataResponse, error)
+	SaveText(ctx context.Context, in *SaveTextDataRequest, opts ...grpc.CallOption) (*SaveTextDataResponse, error)
+	LoadText(ctx context.Context, in *LoadTextDataRequest, opts ...grpc.CallOption) (*LoadTextDataResponse, error)
+	SaveBinary(ctx context.Context, in *SaveBinaryDataRequest, opts ...grpc.CallOption) (*SaveBinaryDataResponse, error)
+	LoadBinary(ctx context.Context, in *LoadBinaryDataRequest, opts ...grpc.CallOption) (*LoadBinaryDataResponse, error)
+	SaveBankCard(ctx context.Context, in *SaveBankCardDataRequest, opts ...grpc.CallOption) (*SaveBankCardDataResponse, error)
+	LoadBankCard(ctx context.Context, in *LoadBankCardDataRequest, opts ...grpc.CallOption) (*LoadBankCardDataResponse, error)
 	RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error)
 	LoginUser(ctx context.Context, in *LoginUserRequest, opts ...grpc.CallOption) (*LoginUserResponse, error)
 }
@@ -61,6 +73,60 @@ func (c *storageClient) LoadCredentials(ctx context.Context, in *LoadCredentials
 	return out, nil
 }
 
+func (c *storageClient) SaveText(ctx context.Context, in *SaveTextDataRequest, opts ...grpc.CallOption) (*SaveTextDataResponse, error) {
+	out := new(SaveTextDataResponse)
+	err := c.cc.Invoke(ctx, Storage_SaveText_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) LoadText(ctx context.Context, in *LoadTextDataRequest, opts ...grpc.CallOption) (*LoadTextDataResponse, error) {
+	out := new(LoadTextDataResponse)
+	err := c.cc.Invoke(ctx, Storage_LoadText_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) SaveBinary(ctx context.Context, in *SaveBinaryDataRequest, opts ...grpc.CallOption) (*SaveBinaryDataResponse, error) {
+	out := new(SaveBinaryDataResponse)
+	err := c.cc.Invoke(ctx, Storage_SaveBinary_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) LoadBinary(ctx context.Context, in *LoadBinaryDataRequest, opts ...grpc.CallOption) (*LoadBinaryDataResponse, error) {
+	out := new(LoadBinaryDataResponse)
+	err := c.cc.Invoke(ctx, Storage_LoadBinary_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) SaveBankCard(ctx context.Context, in *SaveBankCardDataRequest, opts ...grpc.CallOption) (*SaveBankCardDataResponse, error) {
+	out := new(SaveBankCardDataResponse)
+	err := c.cc.Invoke(ctx, Storage_SaveBankCard_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) LoadBankCard(ctx context.Context, in *LoadBankCardDataRequest, opts ...grpc.CallOption) (*LoadBankCardDataResponse, error) {
+	out := new(LoadBankCardDataResponse)
+	err := c.cc.Invoke(ctx, Storage_LoadBankCard_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *storageClient) RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error) {
 	out := new(RegisterUserResponse)
 	err := c.cc.Invoke(ctx, Storage_RegisterUser_FullMethodName, in, out, opts...)
@@ -85,6 +151,12 @@ func (c *storageClient) LoginUser(ctx context.Context, in *LoginUserRequest, opt
 type StorageServer interface {
 	SaveCredentials(context.Context, *SaveCredentialsDataRequest) (*SaveCredentialsDataResponse, error)
 	LoadCredentials(context.Context, *LoadCredentialsDataRequest) (*LoadCredentialsDataResponse, error)
+	SaveText(context.Context, *SaveTextDataRequest) (*SaveTextDataResponse, error)
+	LoadText(context.Context, *LoadTextDataRequest) (*LoadTextDataResponse, error)
+	SaveBinary(context.Context, *SaveBinaryDataRequest) (*SaveBinaryDataResponse, error)
+	LoadBinary(context.Context, *LoadBinaryDataRequest) (*LoadBinaryDataResponse, error)
+	SaveBankCard(context.Context, *SaveBankCardDataRequest) (*SaveBankCardDataResponse, error)
+	LoadBankCard(context.Context, *LoadBankCardDataRequest) (*LoadBankCardDataResponse, error)
 	RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error)
 	LoginUser(context.Context, *LoginUserRequest) (*LoginUserResponse, error)
 	mustEmbedUnimplementedStorageServer()
@@ -99,6 +171,24 @@ func (UnimplementedStorageServer) SaveCredentials(context.Context, *SaveCredenti
 }
 func (UnimplementedStorageServer) LoadCredentials(context.Context, *LoadCredentialsDataRequest) (*LoadCredentialsDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LoadCredentials not implemented")
+}
+func (UnimplementedStorageServer) SaveText(context.Context, *SaveTextDataRequest) (*SaveTextDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveText not implemented")
+}
+func (UnimplementedStorageServer) LoadText(context.Context, *LoadTextDataRequest) (*LoadTextDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoadText not implemented")
+}
+func (UnimplementedStorageServer) SaveBinary(context.Context, *SaveBinaryDataRequest) (*SaveBinaryDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveBinary not implemented")
+}
+func (UnimplementedStorageServer) LoadBinary(context.Context, *LoadBinaryDataRequest) (*LoadBinaryDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoadBinary not implemented")
+}
+func (UnimplementedStorageServer) SaveBankCard(context.Context, *SaveBankCardDataRequest) (*SaveBankCardDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveBankCard not implemented")
+}
+func (UnimplementedStorageServer) LoadBankCard(context.Context, *LoadBankCardDataRequest) (*LoadBankCardDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoadBankCard not implemented")
 }
 func (UnimplementedStorageServer) RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterUser not implemented")
@@ -155,6 +245,114 @@ func _Storage_LoadCredentials_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Storage_SaveText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SaveTextDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).SaveText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_SaveText_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).SaveText(ctx, req.(*SaveTextDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_LoadText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoadTextDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).LoadText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_LoadText_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).LoadText(ctx, req.(*LoadTextDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_SaveBinary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SaveBinaryDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).SaveBinary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_SaveBinary_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).SaveBinary(ctx, req.(*SaveBinaryDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_LoadBinary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoadBinaryDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).LoadBinary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_LoadBinary_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).LoadBinary(ctx, req.(*LoadBinaryDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_SaveBankCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SaveBankCardDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).SaveBankCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_SaveBankCard_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).SaveBankCard(ctx, req.(*SaveBankCardDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_LoadBankCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoadBankCardDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).LoadBankCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_LoadBankCard_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).LoadBankCard(ctx, req.(*LoadBankCardDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Storage_RegisterUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RegisterUserRequest)
 	if err := dec(in); err != nil {
@@ -205,6 +403,30 @@ var Storage_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LoadCredentials",
 			Handler:    _Storage_LoadCredentials_Handler,
+		},
+		{
+			MethodName: "SaveText",
+			Handler:    _Storage_SaveText_Handler,
+		},
+		{
+			MethodName: "LoadText",
+			Handler:    _Storage_LoadText_Handler,
+		},
+		{
+			MethodName: "SaveBinary",
+			Handler:    _Storage_SaveBinary_Handler,
+		},
+		{
+			MethodName: "LoadBinary",
+			Handler:    _Storage_LoadBinary_Handler,
+		},
+		{
+			MethodName: "SaveBankCard",
+			Handler:    _Storage_SaveBankCard_Handler,
+		},
+		{
+			MethodName: "LoadBankCard",
+			Handler:    _Storage_LoadBankCard_Handler,
 		},
 		{
 			MethodName: "RegisterUser",
