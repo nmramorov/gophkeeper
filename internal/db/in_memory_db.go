@@ -103,7 +103,7 @@ func (d *InMemoryDB) SaveText(ctx context.Context, data models.TextData) error {
 	case <-ctx.Done():
 		return ErrContextTimeout
 	default:
-		d.Users.Store(data.UUID, data)
+		d.Texts.Store(data.UUID, data)
 		return nil
 	}
 }
