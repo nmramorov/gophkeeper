@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/nmramorov/gophkeeper/internal/api/models"
 	"github.com/nmramorov/gophkeeper/internal/db"
 	pb "github.com/nmramorov/gophkeeper/internal/proto"
@@ -12,39 +13,52 @@ import (
 func (s *StorageServer) Login(ctx context.Context, in *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
 	var response pb.LoginUserResponse
 
-	token := GenerateToken(in.User.Login, in.User.Password)
-	_, err := s.Storage.LoadUser(ctx, token)
-	if err != nil {
+	token := Token{
+		Login:    in.User.Login,
+		Password: in.User.Password,
+		salt:     "salt",
+	}
+	encodedToken := EncodeToken(token)
+	_, err := s.Storage.FindUser(ctx, in.User.Login, in.User.Password)
+	switch err {
+	case nil:
+		response.Token = encodedToken
+	case db.ErrUserNotFound:
+		response.Error = fmt.Sprintf("user %s not found", in.User.Login)
+	default:
 		response.Error = fmt.Sprintf("error loading user %s: %e", in.User.Login, err)
-	} else {
-		response.Token = "token"
 	}
 	return &response, nil
 }
 
 func (s *StorageServer) Register(ctx context.Context, in *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
 	var response pb.RegisterUserResponse
-	token := GenerateToken(in.User.Login, in.User.Password)
-	newUser := models.User{
+
+	token := Token{
 		Login:    in.User.Login,
 		Password: in.User.Password,
-		Token:    token,
+		salt:     "salt",
 	}
-	user, err := s.Storage.LoadUser(ctx, token)
-	if err == db.ErrUserNotFound {
-		err = s.Storage.SaveUser(ctx, newUser)
-		if err != nil {
-			response.Error = fmt.Sprintf("registration error with %s: %e", in.User.Login, err)
-		}
-
-		return &response, nil
-	} else {
-		response.Error = fmt.Sprintf("internal server error: %e", err)
-	}
-
-	if user.Login == newUser.Login {
-		response.Error = fmt.Sprintf("user %s already exists", in.User.Login)
+	encodedToken := EncodeToken(token)
+	_, err := s.Storage.FindUser(ctx, in.User.Login, in.User.Password)
+	switch err {
+	case nil:
+		response.Error = fmt.Sprintf("user already exists %s", in.User.Login)
+	case db.ErrContextTimeout:
+		response.Error = fmt.Sprintf("registration. find user timeout %s: %e", in.User.Login, err)
+	case db.ErrInMemoryDB:
+		response.Error = fmt.Sprintf("internal server error %s: %e", in.User.Login, err)
 	}
 
+	newUser := models.User{
+		UUID:     uuid.NewString(),
+		Login:    in.User.Login,
+		Password: in.User.Password,
+		Token:    encodedToken,
+	}
+	err = s.Storage.SaveUser(ctx, newUser)
+	if err != nil {
+		response.Error = fmt.Sprintf("registration error with %s: %e", in.User.Login, err)
+	}
 	return &response, nil
 }

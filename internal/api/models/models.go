@@ -21,3 +21,21 @@ type TextData struct {
 	Data   string
 	Meta   string
 }
+
+type BinaryData struct {
+	UUID   string
+	UserID string
+	Data   []byte
+	Meta   string
+}
+
+type BankCardData struct {
+	UUID       string
+	UserID     string
+	Number     string
+	Owner      string
+	ExpiresAt  string
+	SecretCode string
+	PinCode    string
+	Meta       string
+}

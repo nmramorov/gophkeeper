@@ -11,13 +11,15 @@ func ValidateToken(incoming, stored string) bool {
 }
 
 func (s *StorageServer) ValidateRequest(ctx context.Context, token string) string {
-	user, err := s.Storage.LoadUser(ctx, token)
-	if err != nil {
-		if err == db.ErrUserNotFound {
-			return "authorization error: invalid token"
-		} else {
-			return "internal server error"
-		}
+	decodedToken := DecodeToken(token)
+	user, err := s.Storage.FindUser(ctx, decodedToken.Login, decodedToken.Password)
+	switch err {
+	case db.ErrUserNotFound:
+		return "authorization error: wrong username"
+	case db.ErrContextTimeout:
+		return "context timeout. internal server error"
+	case db.ErrInMemoryDB:
+		return "internal server error"
 	}
 	if !ValidateToken(token, user.Token) {
 		return "authorization error: invalid token"

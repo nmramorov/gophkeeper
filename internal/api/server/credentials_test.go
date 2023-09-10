@@ -30,7 +30,7 @@ func (suite *CredentialsTestSuite) SetupTest() {
 	err := suite.Server.Storage.SaveUser(suite.ctx, models.User{
 		Login:    "initial login",
 		Password: "initial password",
-		Token:    "initial logininitial passwordsalt",
+		Token:    "initial login/initial password/salt",
 	})
 	if err != nil {
 		suite.T().Errorf("Error setup - saving user: %e", err)
@@ -48,7 +48,7 @@ func (suite *CredentialsTestSuite) SetupTest() {
 
 func (suite *CredentialsTestSuite) TestSaveCredentialsInvalidToken() {
 	req := &pb.SaveCredentialsDataRequest{
-		Token: "invalid token",
+		Token: "invalid user/invalid password/invalid salt",
 		Data: &pb.CredentialsData{
 			Uuid:     "test uuid",
 			Login:    "invalid login",
@@ -58,12 +58,12 @@ func (suite *CredentialsTestSuite) TestSaveCredentialsInvalidToken() {
 	}
 	resp, err := suite.Server.SaveCredentials(suite.ctx, req)
 	require.NoError(suite.T(), err)
-	require.Equal(suite.T(), "authorization error: invalid token", resp.Error)
+	require.Equal(suite.T(), "authorization error: wrong username", resp.Error)
 }
 
 func (suite *CredentialsTestSuite) TestSaveCredentialsSuccess() {
 	req := &pb.SaveCredentialsDataRequest{
-		Token: "initial logininitial passwordsalt",
+		Token: "initial login/initial password/salt",
 		Data: &pb.CredentialsData{
 			Uuid:     "test uuid",
 			Login:    "new login",
@@ -78,7 +78,7 @@ func (suite *CredentialsTestSuite) TestSaveCredentialsSuccess() {
 
 func (suite *CredentialsTestSuite) TestLoadCredentialsSuccess() {
 	req := &pb.LoadCredentialsDataRequest{
-		Token: "initial logininitial passwordsalt",
+		Token: "initial login/initial password/salt",
 		Uuid:  "initial UUID",
 	}
 	resp, err := suite.Server.LoadCredentials(suite.ctx, req)
@@ -92,17 +92,17 @@ func (suite *CredentialsTestSuite) TestLoadCredentialsSuccess() {
 
 func (suite *CredentialsTestSuite) TestLoadCredentialsAuthError() {
 	req := &pb.LoadCredentialsDataRequest{
-		Token: "wrong token",
+		Token: "w/w/w",
 		Uuid:  "initial UUID",
 	}
 	resp, err := suite.Server.LoadCredentials(suite.ctx, req)
 	require.NoError(suite.T(), err)
-	require.Equal(suite.T(), "authorization error: invalid token", resp.Error)
+	require.Equal(suite.T(), "authorization error: wrong username", resp.Error)
 }
 
 func (suite *CredentialsTestSuite) TestLoadCredentialsNoSuchID() {
 	req := &pb.LoadCredentialsDataRequest{
-		Token: "wrong token",
+		Token: "initial login/initial password/salt",
 		Uuid:  "wrong UUID",
 	}
 	resp, err := suite.Server.LoadCredentials(suite.ctx, req)

@@ -55,7 +55,7 @@ func (suite *AuthTestSuite) TestLoginInvalid() {
 	}
 	resp, err := suite.Server.Login(suite.ctx, req)
 	require.NoError(suite.T(), err)
-	require.Equal(suite.T(), "error loading user test login: &{%!e(string=user not found)}", resp.Error)
+	require.Equal(suite.T(), "user test login not found", resp.Error)
 	require.Equal(suite.T(), "", resp.Token)
 }
 
@@ -69,7 +69,7 @@ func (suite *AuthTestSuite) TestLoginValid() {
 	resp, err := suite.Server.Login(suite.ctx, req)
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), "", resp.Error)
-	require.Equal(suite.T(), "token", resp.Token)
+	require.Equal(suite.T(), "initial login/initial password/salt", resp.Token)
 }
 
 func (suite *AuthTestSuite) TestRegisterValid() {
@@ -93,7 +93,7 @@ func (suite *AuthTestSuite) TestRegisterInvalid() {
 	}
 	resp, err := suite.Server.Register(suite.ctx, req)
 	require.NoError(suite.T(), err)
-	require.Equal(suite.T(), "user initial login already exists", resp.Error)
+	require.Equal(suite.T(), "user already exists initial login", resp.Error)
 }
 
 func TestAuthTestSuite(t *testing.T) {

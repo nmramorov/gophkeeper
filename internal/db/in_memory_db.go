@@ -73,6 +73,31 @@ func (d *InMemoryDB) LoadUser(ctx context.Context, id string) (models.User, erro
 	}
 }
 
+func (d *InMemoryDB) FindUser(ctx context.Context, login, password string) (models.User, error) {
+	select {
+	case <-ctx.Done():
+		return models.User{}, ErrContextTimeout
+	default:
+		requiredUserIDs := []string{}
+		d.Users.Range(func(key, value any) bool {
+			if value.(models.User).Login == login && value.(models.User).Password == password {
+				requiredUserIDs = append(requiredUserIDs, key.(string))
+				return false
+			}
+			return true
+		})
+		if len(requiredUserIDs) == 0 {
+			return models.User{}, ErrUserNotFound
+		}
+		userID := requiredUserIDs[0]
+		userData, err := d.LoadUser(ctx, userID)
+		if err != nil {
+			return models.User{}, ErrInMemoryDB
+		}
+		return userData, nil
+	}
+}
+
 func (d *InMemoryDB) SaveText(ctx context.Context, data models.TextData) error {
 	select {
 	case <-ctx.Done():
@@ -94,6 +119,56 @@ func (d *InMemoryDB) LoadText(ctx context.Context, id string) (models.TextData, 
 			return result, ErrInMemoryDB
 		}
 		result = data.(models.TextData)
+		return result, nil
+	}
+}
+
+func (d *InMemoryDB) SaveBinary(ctx context.Context, data models.BinaryData) error {
+	select {
+	case <-ctx.Done():
+		return ErrContextTimeout
+	default:
+		d.Binaries.Store(data.UUID, data)
+		return nil
+	}
+}
+
+func (d *InMemoryDB) LoadBinary(ctx context.Context, id string) (models.BinaryData, error) {
+	var result models.BinaryData
+	select {
+	case <-ctx.Done():
+		return result, ErrContextTimeout
+	default:
+		data, ok := d.Binaries.Load(id)
+		if !ok {
+			return result, ErrInMemoryDB
+		}
+		result = data.(models.BinaryData)
+		return result, nil
+	}
+}
+
+func (d *InMemoryDB) SaveCard(ctx context.Context, data models.BankCardData) error {
+	select {
+	case <-ctx.Done():
+		return ErrContextTimeout
+	default:
+		d.Cards.Store(data.UUID, data)
+		return nil
+	}
+}
+
+func (d *InMemoryDB) LoadCard(ctx context.Context, id string) (models.BankCardData, error) {
+	var result models.BankCardData
+	select {
+	case <-ctx.Done():
+		return result, ErrContextTimeout
+	default:
+		data, ok := d.Cards.Load(id)
+		if !ok {
+			return result, ErrInMemoryDB
+		}
+		result = data.(models.BankCardData)
 		return result, nil
 	}
 }

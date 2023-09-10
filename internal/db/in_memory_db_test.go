@@ -35,7 +35,26 @@ func (suite *InMemoryDBTestSuite) SetupTest() {
 		Meta:     "initial Meta",
 	})
 	suite.TestDB.Texts.Store("initial UUID", models.TextData{
-		UUID: "initial UUID",
+		UUID:   "initial UUID",
+		UserID: "test uuid",
+		Data:   "test text data",
+		Meta:   "test text meta",
+	})
+	suite.TestDB.Binaries.Store("initial UUID", models.BinaryData{
+		UUID:   "initial UUID",
+		UserID: "test uuid",
+		Data:   []byte{255, 255, 255},
+		Meta:   "test binary meta",
+	})
+	suite.TestDB.Cards.Store("initial UUID", models.BankCardData{
+		UUID:       "initial UUID",
+		UserID:     "test uuid",
+		Number:     "1234 5678 9101 2134",
+		Owner:      "Jeff Jeff",
+		ExpiresAt:  "Never",
+		SecretCode: "228",
+		PinCode:    "0451",
+		Meta:       "test card meta",
 	})
 }
 
@@ -168,6 +187,184 @@ func (suite *InMemoryDBTestSuite) TestSaveUserContextTimeout() {
 	}
 	err := suite.TestDB.SaveUser(newCtx, newData)
 	require.ErrorIs(suite.T(), err, ErrContextTimeout)
+}
+
+func (suite *InMemoryDBTestSuite) TestSaveTextSuccess() {
+	ctx := context.Background()
+	newData := models.TextData{
+		UUID:   "test text uuid",
+		Data:   "test",
+		UserID: "test uuid",
+		Meta:   "test",
+	}
+	err := suite.TestDB.SaveText(ctx, newData)
+	require.NoError(suite.T(), err)
+}
+
+func (suite *InMemoryDBTestSuite) TestSaveTextContextTimeout() {
+	ctx := context.Background()
+	newCtx, cancel := context.WithTimeout(ctx, time.Duration(10)*time.Millisecond)
+	defer cancel()
+	time.Sleep(time.Duration(20) * time.Millisecond)
+	newData := models.TextData{
+		UUID:   "test text uuid",
+		Data:   "test",
+		UserID: "test uuid",
+		Meta:   "test",
+	}
+	err := suite.TestDB.SaveText(newCtx, newData)
+	require.ErrorIs(suite.T(), err, ErrContextTimeout)
+}
+
+func (suite *InMemoryDBTestSuite) TestLoadText() {
+	ctx := context.Background()
+	result, err := suite.TestDB.LoadText(ctx, "initial UUID")
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), models.TextData{
+		UUID:   "initial UUID",
+		UserID: "test uuid",
+		Data:   "test text data",
+		Meta:   "test text meta",
+	}, result)
+}
+
+func (suite *InMemoryDBTestSuite) TestLoadTextContextTimeout() {
+	ctx := context.Background()
+	newCtx, cancel := context.WithTimeout(ctx, time.Duration(10)*time.Millisecond)
+	defer cancel()
+	time.Sleep(time.Duration(30) * time.Millisecond)
+	result, err := suite.TestDB.LoadText(newCtx, "initial UUID")
+	require.ErrorIs(suite.T(), err, ErrContextTimeout)
+	require.Equal(suite.T(), models.TextData{}, result)
+}
+
+func (suite *InMemoryDBTestSuite) TestSaveBinarySuccess() {
+	ctx := context.Background()
+	newData := models.BinaryData{
+		UUID:   "test binary uuid",
+		Data:   []byte{0, 0, 0},
+		UserID: "test uuid",
+		Meta:   "test",
+	}
+	err := suite.TestDB.SaveBinary(ctx, newData)
+	require.NoError(suite.T(), err)
+}
+
+func (suite *InMemoryDBTestSuite) TestSaveBinaryContextTimeout() {
+	ctx := context.Background()
+	newCtx, cancel := context.WithTimeout(ctx, time.Duration(10)*time.Millisecond)
+	defer cancel()
+	time.Sleep(time.Duration(20) * time.Millisecond)
+	newData := models.BinaryData{
+		UUID:   "test text uuid",
+		Data:   []byte{},
+		UserID: "test uuid",
+		Meta:   "test",
+	}
+	err := suite.TestDB.SaveBinary(newCtx, newData)
+	require.ErrorIs(suite.T(), err, ErrContextTimeout)
+}
+
+func (suite *InMemoryDBTestSuite) TestLoadBinary() {
+	ctx := context.Background()
+	result, err := suite.TestDB.LoadBinary(ctx, "initial UUID")
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), models.BinaryData{
+		UUID:   "initial UUID",
+		UserID: "test uuid",
+		Data:   []byte{255, 255, 255},
+		Meta:   "test binary meta",
+	}, result)
+}
+
+func (suite *InMemoryDBTestSuite) TestLoadBinaryContextTimeout() {
+	ctx := context.Background()
+	newCtx, cancel := context.WithTimeout(ctx, time.Duration(10)*time.Millisecond)
+	defer cancel()
+	time.Sleep(time.Duration(30) * time.Millisecond)
+	result, err := suite.TestDB.LoadBinary(newCtx, "initial UUID")
+	require.ErrorIs(suite.T(), err, ErrContextTimeout)
+	require.Equal(suite.T(), models.BinaryData{}, result)
+}
+
+func (suite *InMemoryDBTestSuite) TestSaveCardSuccess() {
+	ctx := context.Background()
+	newData := models.BankCardData{
+		UUID:       "test text uuid",
+		UserID:     "test uuid",
+		Number:     "test number",
+		Owner:      "test owner",
+		ExpiresAt:  "test expiration",
+		SecretCode: "test secret",
+		PinCode:    "test pin",
+		Meta:       "test",
+	}
+	err := suite.TestDB.SaveCard(ctx, newData)
+	require.NoError(suite.T(), err)
+}
+
+func (suite *InMemoryDBTestSuite) TestSaveCardContextTimeout() {
+	ctx := context.Background()
+	newCtx, cancel := context.WithTimeout(ctx, time.Duration(10)*time.Millisecond)
+	defer cancel()
+	time.Sleep(time.Duration(20) * time.Millisecond)
+	newData := models.BankCardData{}
+	err := suite.TestDB.SaveCard(newCtx, newData)
+	require.ErrorIs(suite.T(), err, ErrContextTimeout)
+}
+
+func (suite *InMemoryDBTestSuite) TestLoadCard() {
+	ctx := context.Background()
+	result, err := suite.TestDB.LoadCard(ctx, "initial UUID")
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), models.BankCardData{
+		UUID:       "initial UUID",
+		UserID:     "test uuid",
+		Number:     "1234 5678 9101 2134",
+		Owner:      "Jeff Jeff",
+		ExpiresAt:  "Never",
+		SecretCode: "228",
+		PinCode:    "0451",
+		Meta:       "test card meta",
+	}, result)
+}
+
+func (suite *InMemoryDBTestSuite) TestLoadCardContextTimeout() {
+	ctx := context.Background()
+	newCtx, cancel := context.WithTimeout(ctx, time.Duration(10)*time.Millisecond)
+	defer cancel()
+	time.Sleep(time.Duration(30) * time.Millisecond)
+	result, err := suite.TestDB.LoadCard(newCtx, "initial UUID")
+	require.ErrorIs(suite.T(), err, ErrContextTimeout)
+	require.Equal(suite.T(), models.BankCardData{}, result)
+}
+
+func (suite *InMemoryDBTestSuite) TestFindUser() {
+	ctx := context.Background()
+	result, err := suite.TestDB.FindUser(ctx, "initial login", "initial password")
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), models.User{
+		UUID:     "test uuid",
+		Login:    "initial login",
+		Password: "initial password",
+	}, result)
+}
+
+func (suite *InMemoryDBTestSuite) TestFindUserContextTimeout() {
+	ctx := context.Background()
+	newCtx, cancel := context.WithTimeout(ctx, time.Duration(10)*time.Millisecond)
+	defer cancel()
+	time.Sleep(time.Duration(50) * time.Millisecond)
+	result, err := suite.TestDB.FindUser(newCtx, "initial login", "initial password")
+	require.ErrorIs(suite.T(), err, ErrContextTimeout)
+	require.Equal(suite.T(), models.User{}, result)
+}
+
+func (suite *InMemoryDBTestSuite) TestFindUserNotFound() {
+	ctx := context.Background()
+	result, err := suite.TestDB.FindUser(ctx, "fake login", "fake password")
+	require.Error(suite.T(), ErrUserNotFound, err)
+	require.Equal(suite.T(), result, models.User{})
 }
 
 func TestInMemoryDBTestSuite(t *testing.T) {
