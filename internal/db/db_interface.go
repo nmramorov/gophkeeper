@@ -13,7 +13,12 @@ type Credentials interface {
 
 type Auth interface {
 	SaveUser(ctx context.Context, data models.User) error
-	LoadUser(ctx context.Context, token string) (models.User, error)
+	LoadUser(ctx context.Context, id string) (models.User, error)
+}
+
+type Text interface {
+	SaveText(ctx context.Context, data models.TextData) error
+	LoadText(ctx context.Context, token string) (models.TextData, error)
 }
 
 type DBAPI interface {

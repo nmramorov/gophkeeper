@@ -22,15 +22,20 @@ func (suite *InMemoryDBTestSuite) SetupTest() {
 		Users:       sync.Map{},
 		Credentials: sync.Map{},
 	}
-	suite.TestDB.Users.Store("initial login", models.User{
+	suite.TestDB.Users.Store("test uuid", models.User{
+		UUID:     "test uuid",
 		Login:    "initial login",
 		Password: "initial password",
 	})
 	suite.TestDB.Credentials.Store("initial UUID", models.CredentialsData{
 		UUID:     "initial UUID",
+		UserID:   "test uuid",
 		Login:    "initial login",
 		Password: "initial password",
 		Meta:     "initial Meta",
+	})
+	suite.TestDB.Texts.Store("initial UUID", models.TextData{
+		UUID: "initial UUID",
 	})
 }
 
@@ -67,6 +72,7 @@ func (suite *InMemoryDBTestSuite) TestLoadCredentials() {
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), models.CredentialsData{
 		UUID:     "initial UUID",
+		UserID:   "test uuid",
 		Login:    "initial login",
 		Password: "initial password",
 		Meta:     "initial Meta",
@@ -105,9 +111,10 @@ func (suite *InMemoryDBTestSuite) TestLPingContextTimeout() {
 
 func (suite *InMemoryDBTestSuite) TestLoadUser() {
 	ctx := context.Background()
-	result, err := suite.TestDB.LoadUser(ctx, "initial login")
+	result, err := suite.TestDB.LoadUser(ctx, "test uuid")
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), models.User{
+		UUID:     "test uuid",
 		Login:    "initial login",
 		Password: "initial password",
 	}, result)
@@ -136,15 +143,17 @@ func (suite *InMemoryDBTestSuite) TestLoadUserNotFound() {
 func (suite *InMemoryDBTestSuite) TestSaveUser() {
 	ctx := context.Background()
 	newData := models.User{
+		UUID:     "new uuid",
 		Login:    "test",
 		Password: "test",
 		Token:    "test token",
 	}
 	err := suite.TestDB.SaveUser(ctx, newData)
 	require.NoError(suite.T(), err)
-	user, err := suite.TestDB.LoadUser(ctx, "test token")
+	user, err := suite.TestDB.LoadUser(ctx, "new uuid")
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), "test", user.Login)
+	require.Equal(suite.T(), "new uuid", user.UUID)
 	require.Equal(suite.T(), "test token", user.Token)
 }
 
