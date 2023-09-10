@@ -33,16 +33,16 @@ func (s *StorageServer) LoadBinary(ctx context.Context, in *pb.LoadBinaryDataReq
 	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
 
-	text, err := s.Storage.LoadBinary(ctx, in.Uuid)
+	bin, err := s.Storage.LoadBinary(ctx, in.Uuid)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Uuid)
 		return &response, nil
 	}
 	response.Data = &pb.BinaryData{
-		Uuid: text.UUID,
-		Data: text.Data,
+		Uuid: bin.UUID,
+		Data: bin.Data,
 		Meta: &pb.Meta{
-			Content: text.Meta,
+			Content: bin.Meta,
 		},
 	}
 	return &response, nil
