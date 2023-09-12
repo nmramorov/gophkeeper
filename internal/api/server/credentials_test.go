@@ -21,6 +21,7 @@ type CredentialsTestSuite struct {
 
 func (suite *CredentialsTestSuite) SetupTest() {
 	suite.Server = StorageServer{
+		gctx: context.Background(),
 		Storage: &db.InMemoryDB{
 			Users:       sync.Map{},
 			Credentials: sync.Map{},

@@ -21,6 +21,7 @@ type TextTestSuite struct {
 
 func (suite *TextTestSuite) SetupTest() {
 	suite.Server = StorageServer{
+		gctx: context.Background(),
 		Storage: &db.InMemoryDB{
 			Users: sync.Map{},
 			Texts: sync.Map{},

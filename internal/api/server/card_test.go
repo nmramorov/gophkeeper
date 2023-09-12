@@ -21,6 +21,7 @@ type CardTestSuite struct {
 
 func (suite *CardTestSuite) SetupTest() {
 	suite.Server = StorageServer{
+		gctx: context.Background(),
 		Storage: &db.InMemoryDB{
 			Users:    sync.Map{},
 			Binaries: sync.Map{},
