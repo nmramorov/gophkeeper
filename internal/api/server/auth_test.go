@@ -27,10 +27,20 @@ func (suite *AuthTestSuite) SetupTest() {
 		},
 	}
 	suite.ctx = context.Background()
+	sessions := []models.Session{
+		{
+			UUID:  "test session 1",
+			Token: "initial login/initial password/test salt 1",
+		},
+		{
+			UUID:  "test session 2",
+			Token: "initial login/initial password/test salt 2",
+		},
+	}
 	err := suite.Server.Storage.SaveUser(suite.ctx, models.User{
 		Login:    "initial login",
 		Password: "initial password",
-		Token:    "initial logininitial passwordsalt",
+		Sessions: sessions,
 	})
 	if err != nil {
 		suite.T().Errorf("Error setup - saving user: %e", err)

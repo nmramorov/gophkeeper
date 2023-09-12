@@ -21,9 +21,13 @@ func (s *StorageServer) ValidateRequest(ctx context.Context, token string) strin
 	case db.ErrInMemoryDB:
 		return "internal server error"
 	}
-	if !ValidateToken(token, user.Token) {
-		return "authorization error: invalid token"
+	for _, session := range user.Sessions {
+		if ValidateToken(token, session.Token) {
+			// In case of successfull validation value for response.Error is empty
+			return ""
+		}
 	}
-	// In case of successfull validation value for response.Error is empty
-	return ""
+
+	// No tokens registered for the user, therefore token is invalid
+	return "authorization error: invalid token"
 }

@@ -1,10 +1,15 @@
 package models
 
+type Session struct {
+	UUID  string
+	Token string
+}
+
 type User struct {
 	UUID     string
 	Login    string
 	Password string
-	Token    string
+	Sessions []Session
 }
 
 type CredentialsData struct {

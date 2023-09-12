@@ -161,11 +161,16 @@ func (suite *InMemoryDBTestSuite) TestLoadUserNotFound() {
 
 func (suite *InMemoryDBTestSuite) TestSaveUser() {
 	ctx := context.Background()
+	sessions := []models.Session{}
+	sessions = append(sessions, models.Session{
+		UUID:  "test uuid",
+		Token: "test token",
+	})
 	newData := models.User{
 		UUID:     "new uuid",
 		Login:    "test",
 		Password: "test",
-		Token:    "test token",
+		Sessions: sessions,
 	}
 	err := suite.TestDB.SaveUser(ctx, newData)
 	require.NoError(suite.T(), err)
@@ -173,7 +178,7 @@ func (suite *InMemoryDBTestSuite) TestSaveUser() {
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), "test", user.Login)
 	require.Equal(suite.T(), "new uuid", user.UUID)
-	require.Equal(suite.T(), "test token", user.Token)
+	require.Equal(suite.T(), []models.Session([]models.Session{{UUID: "test uuid", Token: "test token"}}), user.Sessions)
 }
 
 func (suite *InMemoryDBTestSuite) TestSaveUserContextTimeout() {

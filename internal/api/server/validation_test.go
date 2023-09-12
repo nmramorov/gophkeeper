@@ -26,18 +26,31 @@ func (suite *ValidationTestSuite) SetupTest() {
 		},
 	}
 	suite.ctx = context.Background()
+	sessions := []models.Session{
+		{
+			UUID:  "test session 1",
+			Token: "initial login/initial password/test salt 1",
+		},
+		{
+			UUID:  "test session 2",
+			Token: "initial login/initial password/test salt 2",
+		},
+	}
 	err := suite.Server.Storage.SaveUser(suite.ctx, models.User{
 		Login:    "initial login",
 		Password: "initial password",
-		Token:    "initial login/initial password/test salt",
+		Sessions: sessions,
 	})
+
 	if err != nil {
 		suite.T().Errorf("Error setup - saving user: %e", err)
 	}
 }
 
 func (suite *ValidationTestSuite) TestValidateRequestSuccess() {
-	result := suite.Server.ValidateRequest(suite.ctx, "initial login/initial password/test salt")
+	result := suite.Server.ValidateRequest(suite.ctx, "initial login/initial password/test salt 1")
+	require.Equal(suite.T(), "", result)
+	result = suite.Server.ValidateRequest(suite.ctx, "initial login/initial password/test salt 2")
 	require.Equal(suite.T(), "", result)
 }
 

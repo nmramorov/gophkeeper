@@ -40,7 +40,7 @@ func (s *StorageServer) Register(ctx context.Context, in *pb.RegisterUserRequest
 		salt:     "salt",
 	}
 	encodedToken := EncodeToken(token)
-	_, err := s.Storage.FindUser(ctx, in.User.Login, in.User.Password)
+	user, err := s.Storage.FindUser(ctx, in.User.Login, in.User.Password)
 	switch err {
 	case nil:
 		response.Error = fmt.Sprintf("user already exists %s", in.User.Login)
@@ -50,11 +50,17 @@ func (s *StorageServer) Register(ctx context.Context, in *pb.RegisterUserRequest
 		response.Error = fmt.Sprintf("internal server error %s: %e", in.User.Login, err)
 	}
 
+	sessions := user.Sessions
+	sessions = append(sessions, models.Session{
+		UUID:  uuid.NewString(),
+		Token: encodedToken,
+	})
+
 	newUser := models.User{
 		UUID:     uuid.NewString(),
 		Login:    in.User.Login,
 		Password: in.User.Password,
-		Token:    encodedToken,
+		Sessions: sessions,
 	}
 	err = s.Storage.SaveUser(ctx, newUser)
 	if err != nil {

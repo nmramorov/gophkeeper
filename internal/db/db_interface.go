@@ -31,6 +31,11 @@ type Cards interface {
 	LoadCard(ctx context.Context, id string) (models.BankCardData, error)
 }
 
+type Session interface {
+	Add(ctx context.Context, session models.Session) error
+	Remove(ctx context.Context, session models.Session) error
+}
+
 type DBAPI interface {
 	Credentials
 	Auth
