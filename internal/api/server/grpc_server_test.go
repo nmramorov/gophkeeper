@@ -33,4 +33,55 @@ func TestStorageServer(t *testing.T) {
 	require.NoError(t, errResp)
 	require.Equal(t, "", response.Error)
 
+	// now try login with user which not exists
+	resp, err := client.LoginUser(ctx, &pb.LoginUserRequest{
+		User: &pb.User{
+			Login:    "stray",
+			Password: "gachipower",
+		},
+	})
+	require.NoError(t, err)
+	require.Equal(t, "user stray not found", resp.Error)
+
+	// then we login with proper user
+	resp, err = client.LoginUser(ctx, &pb.LoginUserRequest{
+		User: &pb.User{
+			Login:    "stray228",
+			Password: "gachipower",
+		},
+	})
+	require.NoError(t, err)
+	require.Equal(t, "", resp.Error)
+	require.Equal(t, "stray228/gachipower/salt", resp.Token)
+	token := resp.Token
+
+	// let's save some data
+	r, errResp := client.SaveCredentials(ctx, &pb.SaveCredentialsDataRequest{
+		Token: token,
+		Data: &pb.CredentialsData{
+			Uuid:     "new uuid",
+			Login:    "twitch login",
+			Password: "twitch password",
+			Meta: &pb.Meta{
+				Content: "twitch metadata",
+			},
+		},
+	})
+	require.NoError(t, errResp)
+	require.Equal(t, "", r.Error)
+
+	// then let's load this data
+	loadResp, err := client.LoadCredentials(ctx, &pb.LoadCredentialsDataRequest{
+		Token: token,
+		Uuid:  "new uuid",
+	})
+	require.NoError(t, err)
+	require.EqualValues(t, pb.CredentialsData{
+		Uuid:     "new uuid",
+		Login:    "twitch login",
+		Password: "twitch password",
+		Meta: &pb.Meta{
+			Content: "twitch metadata",
+		},
+	}, *loadResp.Data)
 }

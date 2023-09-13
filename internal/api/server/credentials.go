@@ -19,6 +19,11 @@ func (s *StorageServer) SaveCredentials(ctx context.Context, in *pb.SaveCredenti
 		Login:    in.Data.Login,
 		Password: in.Data.Password,
 	}
+
+	if in.Data.Meta != nil {
+		newCredentials.Meta = in.Data.Meta.Content
+	}
+
 	err := s.Storage.SaveCredentials(ctx, newCredentials)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Data.Uuid)
