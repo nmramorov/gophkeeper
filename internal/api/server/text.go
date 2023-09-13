@@ -9,13 +9,9 @@ import (
 )
 
 func (s *StorageServer) SaveText(ctx context.Context, in *pb.SaveTextDataRequest) (*pb.SaveTextDataResponse, error) {
-	mctx, mcancel := mergeContext(ctx, s.gctx)
-
-	defer mcancel()
-
 	var response pb.SaveTextDataResponse
 
-	validationError := s.ValidateRequest(mctx, in.Token)
+	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
 
 	newText := models.TextData{
@@ -23,7 +19,7 @@ func (s *StorageServer) SaveText(ctx context.Context, in *pb.SaveTextDataRequest
 		Data: in.Data.Data,
 		Meta: in.Data.Meta.Content,
 	}
-	err := s.Storage.SaveText(mctx, newText)
+	err := s.Storage.SaveText(ctx, newText)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Data.Uuid)
 		return &response, nil
@@ -32,16 +28,12 @@ func (s *StorageServer) SaveText(ctx context.Context, in *pb.SaveTextDataRequest
 }
 
 func (s *StorageServer) LoadText(ctx context.Context, in *pb.LoadTextDataRequest) (*pb.LoadTextDataResponse, error) {
-	mctx, mcancel := mergeContext(ctx, s.gctx)
-
-	defer mcancel()
-
 	var response pb.LoadTextDataResponse
 
-	validationError := s.ValidateRequest(mctx, in.Token)
+	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
 
-	text, err := s.Storage.LoadText(mctx, in.Uuid)
+	text, err := s.Storage.LoadText(ctx, in.Uuid)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Uuid)
 		return &response, nil

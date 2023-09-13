@@ -20,7 +20,6 @@ type ValidationTestSuite struct {
 
 func (suite *ValidationTestSuite) SetupTest() {
 	suite.Server = StorageServer{
-		gctx: context.Background(),
 		Storage: &db.InMemoryDB{
 			Users:       sync.Map{},
 			Credentials: sync.Map{},

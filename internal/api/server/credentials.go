@@ -9,13 +9,9 @@ import (
 )
 
 func (s *StorageServer) SaveCredentials(ctx context.Context, in *pb.SaveCredentialsDataRequest) (*pb.SaveCredentialsDataResponse, error) {
-	mctx, mcancel := mergeContext(ctx, s.gctx)
-
-	defer mcancel()
-	
 	var response pb.SaveCredentialsDataResponse
 
-	validationError := s.ValidateRequest(mctx, in.Token)
+	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
 
 	newCredentials := models.CredentialsData{
@@ -23,7 +19,7 @@ func (s *StorageServer) SaveCredentials(ctx context.Context, in *pb.SaveCredenti
 		Login:    in.Data.Login,
 		Password: in.Data.Password,
 	}
-	err := s.Storage.SaveCredentials(mctx, newCredentials)
+	err := s.Storage.SaveCredentials(ctx, newCredentials)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Data.Uuid)
 		return &response, nil
@@ -32,16 +28,12 @@ func (s *StorageServer) SaveCredentials(ctx context.Context, in *pb.SaveCredenti
 }
 
 func (s *StorageServer) LoadCredentials(ctx context.Context, in *pb.LoadCredentialsDataRequest) (*pb.LoadCredentialsDataResponse, error) {
-	mctx, mcancel := mergeContext(ctx, s.gctx)
-
-	defer mcancel()
-
 	var response pb.LoadCredentialsDataResponse
 
-	validationError := s.ValidateRequest(mctx, in.Token)
+	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
 
-	credentials, err := s.Storage.LoadCredentials(mctx, in.Uuid)
+	credentials, err := s.Storage.LoadCredentials(ctx, in.Uuid)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Uuid)
 		return &response, nil

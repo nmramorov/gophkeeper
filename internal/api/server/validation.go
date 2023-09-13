@@ -11,12 +11,8 @@ func ValidateToken(incoming, stored string) bool {
 }
 
 func (s *StorageServer) ValidateRequest(ctx context.Context, token string) string {
-	mctx, mcancel := mergeContext(ctx, s.gctx)
-
-	defer mcancel()
-
 	decodedToken := DecodeToken(token)
-	user, err := s.Storage.FindUser(mctx, decodedToken.Login, decodedToken.Password)
+	user, err := s.Storage.FindUser(ctx, decodedToken.Login, decodedToken.Password)
 	switch err {
 	case db.ErrUserNotFound:
 		return "authorization error: wrong username"

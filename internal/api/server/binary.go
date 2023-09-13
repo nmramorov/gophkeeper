@@ -9,13 +9,9 @@ import (
 )
 
 func (s *StorageServer) SaveBinary(ctx context.Context, in *pb.SaveBinaryDataRequest) (*pb.SaveBinaryDataResponse, error) {
-	mctx, mcancel := mergeContext(ctx, s.gctx)
-
-	defer mcancel()
-
 	var response pb.SaveBinaryDataResponse
 
-	validationError := s.ValidateRequest(mctx, in.Token)
+	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
 
 	newBytes := models.BinaryData{
@@ -23,7 +19,7 @@ func (s *StorageServer) SaveBinary(ctx context.Context, in *pb.SaveBinaryDataReq
 		Data: in.Data.Data,
 		Meta: in.Data.Meta.Content,
 	}
-	err := s.Storage.SaveBinary(mctx, newBytes)
+	err := s.Storage.SaveBinary(ctx, newBytes)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Data.Uuid)
 		return &response, nil
@@ -32,16 +28,12 @@ func (s *StorageServer) SaveBinary(ctx context.Context, in *pb.SaveBinaryDataReq
 }
 
 func (s *StorageServer) LoadBinary(ctx context.Context, in *pb.LoadBinaryDataRequest) (*pb.LoadBinaryDataResponse, error) {
-	mctx, mcancel := mergeContext(ctx, s.gctx)
-
-	defer mcancel()
-
 	var response pb.LoadBinaryDataResponse
 
-	validationError := s.ValidateRequest(mctx, in.Token)
+	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
 
-	bin, err := s.Storage.LoadBinary(mctx, in.Uuid)
+	bin, err := s.Storage.LoadBinary(ctx, in.Uuid)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Uuid)
 		return &response, nil

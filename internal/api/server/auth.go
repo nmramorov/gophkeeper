@@ -10,11 +10,7 @@ import (
 	pb "github.com/nmramorov/gophkeeper/internal/proto"
 )
 
-func (s *StorageServer) Login(ctx context.Context, in *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
-	mctx, mcancel := mergeContext(ctx, s.gctx)
-
-	defer mcancel()
-
+func (s *StorageServer) LoginUser(ctx context.Context, in *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
 	var response pb.LoginUserResponse
 
 	token := Token{
@@ -23,7 +19,7 @@ func (s *StorageServer) Login(ctx context.Context, in *pb.LoginUserRequest) (*pb
 		salt:     "salt",
 	}
 	encodedToken := EncodeToken(token)
-	_, err := s.Storage.FindUser(mctx, in.User.Login, in.User.Password)
+	_, err := s.Storage.FindUser(ctx, in.User.Login, in.User.Password)
 	switch err {
 	case nil:
 		response.Token = encodedToken
@@ -35,11 +31,7 @@ func (s *StorageServer) Login(ctx context.Context, in *pb.LoginUserRequest) (*pb
 	return &response, nil
 }
 
-func (s *StorageServer) Register(ctx context.Context, in *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
-	mctx, mcancel := mergeContext(ctx, s.gctx)
-
-	defer mcancel()
-
+func (s *StorageServer) RegisterUser(ctx context.Context, in *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
 	var response pb.RegisterUserResponse
 
 	token := Token{
@@ -48,7 +40,7 @@ func (s *StorageServer) Register(ctx context.Context, in *pb.RegisterUserRequest
 		salt:     "salt",
 	}
 	encodedToken := EncodeToken(token)
-	user, err := s.Storage.FindUser(mctx, in.User.Login, in.User.Password)
+	user, err := s.Storage.FindUser(ctx, in.User.Login, in.User.Password)
 	switch err {
 	case nil:
 		response.Error = fmt.Sprintf("user already exists %s", in.User.Login)

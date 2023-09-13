@@ -21,7 +21,6 @@ type AuthTestSuite struct {
 
 func (suite *AuthTestSuite) SetupTest() {
 	suite.Server = StorageServer{
-		gctx: context.Background(),
 		Storage: &db.InMemoryDB{
 			Users:       sync.Map{},
 			Credentials: sync.Map{},
@@ -64,7 +63,7 @@ func (suite *AuthTestSuite) TestLoginInvalid() {
 			Password: "test password",
 		},
 	}
-	resp, err := suite.Server.Login(suite.ctx, req)
+	resp, err := suite.Server.LoginUser(suite.ctx, req)
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), "user test login not found", resp.Error)
 	require.Equal(suite.T(), "", resp.Token)
@@ -77,7 +76,7 @@ func (suite *AuthTestSuite) TestLoginValid() {
 			Password: "initial password",
 		},
 	}
-	resp, err := suite.Server.Login(suite.ctx, req)
+	resp, err := suite.Server.LoginUser(suite.ctx, req)
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), "", resp.Error)
 	require.Equal(suite.T(), "initial login/initial password/salt", resp.Token)
@@ -90,7 +89,7 @@ func (suite *AuthTestSuite) TestRegisterValid() {
 			Password: "new password",
 		},
 	}
-	resp, err := suite.Server.Register(suite.ctx, req)
+	resp, err := suite.Server.RegisterUser(suite.ctx, req)
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), "", resp.Error)
 }
@@ -102,7 +101,7 @@ func (suite *AuthTestSuite) TestRegisterInvalid() {
 			Password: "initial password",
 		},
 	}
-	resp, err := suite.Server.Register(suite.ctx, req)
+	resp, err := suite.Server.RegisterUser(suite.ctx, req)
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), "user already exists initial login", resp.Error)
 }

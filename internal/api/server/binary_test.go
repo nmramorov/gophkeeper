@@ -21,7 +21,6 @@ type BinaryTestSuite struct {
 
 func (suite *BinaryTestSuite) SetupTest() {
 	suite.Server = StorageServer{
-		gctx: context.Background(),
 		Storage: &db.InMemoryDB{
 			Users:    sync.Map{},
 			Binaries: sync.Map{},
