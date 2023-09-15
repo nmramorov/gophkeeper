@@ -65,7 +65,7 @@ func (suite *TextTestSuite) TestSaveTextInvalidToken() {
 		},
 	}
 	resp, err := suite.Server.SaveText(suite.ctx, req)
-	require.NoError(suite.T(), err)
+	require.Error(suite.T(), ErrInvalidToken, err)
 	require.Equal(suite.T(), "authorization error: invalid token", resp.Error)
 }
 
@@ -102,7 +102,7 @@ func (suite *TextTestSuite) TestLoadTextAuthError() {
 		Uuid:  "initial UUID",
 	}
 	resp, err := suite.Server.LoadText(suite.ctx, req)
-	require.NoError(suite.T(), err)
+	require.Error(suite.T(), ErrInvalidToken, err)
 	require.Equal(suite.T(), "authorization error: invalid token", resp.Error)
 }
 
@@ -112,7 +112,7 @@ func (suite *TextTestSuite) TestLoadTextNoSuchID() {
 		Uuid:  "wrong UUID",
 	}
 	resp, err := suite.Server.LoadText(suite.ctx, req)
-	require.NoError(suite.T(), err)
+	require.Error(suite.T(), ErrDatabaseError, err)
 	require.Equal(suite.T(), "internal server error for data wrong UUID", resp.Error)
 }
 

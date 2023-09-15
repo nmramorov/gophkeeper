@@ -13,6 +13,9 @@ func (s *StorageServer) SaveCard(ctx context.Context, in *pb.SaveBankCardDataReq
 
 	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
+	if response.Error != "" {
+		return &response, ErrInvalidToken
+	}
 
 	newCard := models.BankCardData{
 		UUID:       in.Data.Uuid,
@@ -26,7 +29,7 @@ func (s *StorageServer) SaveCard(ctx context.Context, in *pb.SaveBankCardDataReq
 	err := s.Storage.SaveCard(ctx, newCard)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Data.Uuid)
-		return &response, nil
+		return &response, ErrDatabaseError
 	}
 	return &response, nil
 }
@@ -36,11 +39,14 @@ func (s *StorageServer) LoadCard(ctx context.Context, in *pb.LoadBankCardDataReq
 
 	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
+	if response.Error != "" {
+		return &response, ErrInvalidToken
+	}
 
 	card, err := s.Storage.LoadCard(ctx, in.Uuid)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Uuid)
-		return &response, nil
+		return &response, ErrDatabaseError
 	}
 	response.Data = &pb.BankCardData{
 		Uuid:       card.UUID,

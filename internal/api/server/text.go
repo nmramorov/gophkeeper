@@ -13,6 +13,9 @@ func (s *StorageServer) SaveText(ctx context.Context, in *pb.SaveTextDataRequest
 
 	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
+	if response.Error != "" {
+		return &response, ErrInvalidToken
+	}
 
 	newText := models.TextData{
 		UUID: in.Data.Uuid,
@@ -22,7 +25,7 @@ func (s *StorageServer) SaveText(ctx context.Context, in *pb.SaveTextDataRequest
 	err := s.Storage.SaveText(ctx, newText)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Data.Uuid)
-		return &response, nil
+		return &response, ErrDatabaseError
 	}
 	return &response, nil
 }
@@ -32,11 +35,14 @@ func (s *StorageServer) LoadText(ctx context.Context, in *pb.LoadTextDataRequest
 
 	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
+	if response.Error != "" {
+		return &response, ErrInvalidToken
+	}
 
 	text, err := s.Storage.LoadText(ctx, in.Uuid)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Uuid)
-		return &response, nil
+		return &response, ErrDatabaseError
 	}
 	response.Data = &pb.TextData{
 		Uuid: text.UUID,

@@ -13,6 +13,9 @@ func (s *StorageServer) SaveCredentials(ctx context.Context, in *pb.SaveCredenti
 
 	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
+	if response.Error != "" {
+		return &response, ErrInvalidToken
+	}
 
 	newCredentials := models.CredentialsData{
 		UUID:     in.Data.Uuid,
@@ -27,7 +30,7 @@ func (s *StorageServer) SaveCredentials(ctx context.Context, in *pb.SaveCredenti
 	err := s.Storage.SaveCredentials(ctx, newCredentials)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Data.Uuid)
-		return &response, nil
+		return &response, ErrDatabaseError
 	}
 	return &response, nil
 }
@@ -37,11 +40,14 @@ func (s *StorageServer) LoadCredentials(ctx context.Context, in *pb.LoadCredenti
 
 	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
+	if response.Error != "" {
+		return &response, ErrInvalidToken
+	}
 
 	credentials, err := s.Storage.LoadCredentials(ctx, in.Uuid)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Uuid)
-		return &response, nil
+		return &response, ErrDatabaseError
 	}
 	response.Data = &pb.CredentialsData{
 		Uuid:     credentials.UUID,

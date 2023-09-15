@@ -67,7 +67,7 @@ func (suite *CredentialsTestSuite) TestSaveCredentialsInvalidToken() {
 		},
 	}
 	resp, err := suite.Server.SaveCredentials(suite.ctx, req)
-	require.NoError(suite.T(), err)
+	require.Error(suite.T(), ErrInvalidToken, err)
 	require.Equal(suite.T(), "authorization error: wrong username", resp.Error)
 }
 
@@ -106,7 +106,7 @@ func (suite *CredentialsTestSuite) TestLoadCredentialsAuthError() {
 		Uuid:  "initial UUID",
 	}
 	resp, err := suite.Server.LoadCredentials(suite.ctx, req)
-	require.NoError(suite.T(), err)
+	require.Error(suite.T(), ErrInvalidToken, err)
 	require.Equal(suite.T(), "authorization error: wrong username", resp.Error)
 }
 
@@ -116,7 +116,7 @@ func (suite *CredentialsTestSuite) TestLoadCredentialsNoSuchID() {
 		Uuid:  "wrong UUID",
 	}
 	resp, err := suite.Server.LoadCredentials(suite.ctx, req)
-	require.NoError(suite.T(), err)
+	require.Error(suite.T(), ErrDatabaseError, err)
 	require.Equal(suite.T(), "internal server error for data wrong UUID", resp.Error)
 }
 

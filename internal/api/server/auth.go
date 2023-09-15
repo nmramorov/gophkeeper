@@ -23,12 +23,14 @@ func (s *StorageServer) LoginUser(ctx context.Context, in *pb.LoginUserRequest) 
 	switch err {
 	case nil:
 		response.Token = encodedToken
+		return &response, nil
 	case db.ErrUserNotFound:
 		response.Error = fmt.Sprintf("user %s not found", in.User.Login)
+		return &response, ErrUserNotFound
 	default:
 		response.Error = fmt.Sprintf("error loading user %s: %e", in.User.Login, err)
+		return &response, ErrDatabaseError
 	}
-	return &response, nil
 }
 
 func (s *StorageServer) RegisterUser(ctx context.Context, in *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
@@ -44,10 +46,13 @@ func (s *StorageServer) RegisterUser(ctx context.Context, in *pb.RegisterUserReq
 	switch err {
 	case nil:
 		response.Error = fmt.Sprintf("user already exists %s", in.User.Login)
+		return &response, ErrUserAlreadyExists
 	case db.ErrContextTimeout:
 		response.Error = fmt.Sprintf("registration. find user timeout %s: %e", in.User.Login, err)
+		return &response, ErrTimeout
 	case db.ErrInMemoryDB:
 		response.Error = fmt.Sprintf("internal server error %s: %e", in.User.Login, err)
+		return &response, ErrDatabaseError
 	}
 
 	sessions := user.Sessions
@@ -65,6 +70,7 @@ func (s *StorageServer) RegisterUser(ctx context.Context, in *pb.RegisterUserReq
 	err = s.Storage.SaveUser(ctx, newUser)
 	if err != nil {
 		response.Error = fmt.Sprintf("registration error with %s: %e", in.User.Login, err)
+		return &response, ErrDatabaseError
 	}
 	return &response, nil
 }

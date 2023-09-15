@@ -40,8 +40,7 @@ func TestStorageServer(t *testing.T) {
 			Password: "gachipower",
 		},
 	})
-	require.NoError(t, err)
-	require.Equal(t, "user stray not found", resp.Error)
+	require.Error(t, ErrUserNotFound, err)
 
 	// then we login with proper user
 	resp, err = client.LoginUser(ctx, &pb.LoginUserRequest{

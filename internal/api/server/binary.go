@@ -13,6 +13,9 @@ func (s *StorageServer) SaveBinary(ctx context.Context, in *pb.SaveBinaryDataReq
 
 	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
+	if response.Error != "" {
+		return &response, ErrInvalidToken
+	}
 
 	newBytes := models.BinaryData{
 		UUID: in.Data.Uuid,
@@ -22,7 +25,7 @@ func (s *StorageServer) SaveBinary(ctx context.Context, in *pb.SaveBinaryDataReq
 	err := s.Storage.SaveBinary(ctx, newBytes)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Data.Uuid)
-		return &response, nil
+		return &response, ErrDatabaseError
 	}
 	return &response, nil
 }
@@ -32,11 +35,14 @@ func (s *StorageServer) LoadBinary(ctx context.Context, in *pb.LoadBinaryDataReq
 
 	validationError := s.ValidateRequest(ctx, in.Token)
 	response.Error = validationError
+	if response.Error != "" {
+		return &response, ErrInvalidToken
+	}
 
 	bin, err := s.Storage.LoadBinary(ctx, in.Uuid)
 	if err != nil {
 		response.Error = fmt.Sprintf("internal server error for data %s", in.Uuid)
-		return &response, nil
+		return &response, ErrDatabaseError
 	}
 	response.Data = &pb.BinaryData{
 		Uuid: bin.UUID,

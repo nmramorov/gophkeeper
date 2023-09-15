@@ -68,7 +68,7 @@ func (suite *CardTestSuite) TestSaveCardInvalidToken() {
 		},
 	}
 	resp, err := suite.Server.SaveCard(suite.ctx, req)
-	require.NoError(suite.T(), err)
+	require.Error(suite.T(), ErrInvalidToken, err)
 	require.Equal(suite.T(), "authorization error: invalid token", resp.Error)
 }
 
@@ -115,7 +115,7 @@ func (suite *CardTestSuite) TestLoadCardAuthError() {
 		Uuid:  "initial UUID",
 	}
 	resp, err := suite.Server.LoadCard(suite.ctx, req)
-	require.NoError(suite.T(), err)
+	require.Error(suite.T(), ErrInvalidToken, err)
 	require.Equal(suite.T(), "authorization error: invalid token", resp.Error)
 }
 
@@ -125,7 +125,7 @@ func (suite *CardTestSuite) TestLoadCardNoSuchID() {
 		Uuid:  "wrong UUID",
 	}
 	resp, err := suite.Server.LoadCard(suite.ctx, req)
-	require.NoError(suite.T(), err)
+	require.Error(suite.T(), ErrDatabaseError, err)
 	require.Equal(suite.T(), "internal server error for data wrong UUID", resp.Error)
 }
 
